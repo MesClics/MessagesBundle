@@ -1,0 +1,45 @@
+<h2 class="[ oocss-title-section ]">{{ 'messages.sections.inbox'|trans }}</h2>
+<table class="[ oocss-table ]" id="messages_list">
+    <thead>
+        <tr class="[ oocss-table-head-row ]">
+            <th>{{ 'messages.table.date'|trans }}</th>
+            <th>{{ 'messages.table.hour'|trans }}</th>
+            <th>{{ 'messages.table.from'|trans }}</th>
+            <th>{{ 'messages.table.subject'|trans }}</th>
+        </tr>
+    </thead>
+    {% if received|length >= 1 %}
+        {% if page is not defined %}
+            {% set page = 1 %}
+        {% endif %}
+
+        {% set currItems = paginate(received).page(page) %}
+
+        {% for msg in currItems %}
+            <tr class="[ oocss-table-row oocss-table-row__d__messages {% if msg.hasBeenRead(app.user) == false %}oocss-table-row__d__messages__s__unread {% endif %}]">
+                <td class="[ oocss-table-data ]">
+                    {{ msg.creationDate | date('d/m/Y') }}</td>
+                <td class="[ oocss-table-data ]">{{ msg.creationDate | date('H:i') }}</td>
+                <td class="[ oocss-table-data ]">
+                    {{ msg.author.username }}
+                </td>
+                <td class="[ oocss-table-data ]">
+                    <a class="[ oocss-table-link ]" href="{{ path('mc_admin_messages_received_preview', { 'message_id': msg.id }) }}">{{ msg.title }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+</table>
+
+{% if page > 1 %}
+    <div class="page-nav">
+        {% for i in 1..currItems|pages  %}
+            <a 
+            class="
+            page-button 
+            {% if loop|first or loop|last %}first-last {% endif %} {% if i == page %}current-page {% endif %}
+            " 
+            href="{{ path('mc_admin_messages_received', {'page': i}) }}">{{ i }}</a>{% if not loop|last %} | {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

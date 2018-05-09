@@ -1,0 +1,44 @@
+services:
+#    mc_messages.example:
+#        class: MC\MessagesBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    mc_messages.message_reader:
+        class: MC\MessagesBundle\MessageReader\MessageReader
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
+
+    mc_messages.message_read_listener:
+        class: MC\MessagesBundle\Events\EventListeners\MessageReadListener
+        arguments:
+            - "@mc_messages.message_reader"
+        tags:
+            - { name: kernel.event_listener, event: mc_messages.read_message, method: process }
+    
+    mc_messages.form_manager.new:
+        class: MC\MessagesBundle\Form\FormManager\MessageFormManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@request_stack"
+            - "@session"
+    
+    mc_messages.form_manager.user:
+        class: MC\MessagesBundle\Form\FormManager\UserMessageFormManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@request_stack"
+            - "@session"
+
+    mc_messages.counter:
+        class: MC\MessagesBundle\MessagesCounter\MessagesCounter
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
+
+    mc_messages.twig.counter:
+        class: MC\MessagesBundle\Twig\MessagesCounterExtension
+        arguments:
+            - "@mc_messages.counter"
+        tags:
+            - { name: twig.extension }

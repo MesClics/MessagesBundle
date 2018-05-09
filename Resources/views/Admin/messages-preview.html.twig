@@ -1,0 +1,21 @@
+<div class="[ oocss-message oocss-message__d__lateral ]">
+    <div class="[ oocss-message--headers oocss-message--headers__d__lateral ]">
+        Messsage envoyé par {{ message_preview.current.author }} reçu le {{ message_preview.current.creationDate | date('d/m/Y') }} à {{ message_preview.current.creationDate
+        | date('H:i') }}
+        <h2 class="[ oocss-message-headers--title ]">{{ message_preview.current.title }}</h2>
+    </div>
+    
+    <div class="[ oocss-message--content oocss-message--content__d__lateral ]">
+        {{ message_preview.current.content }}
+    </div>
+
+    <div class="[ oocss-message--controls oocss-message--controlls__d__lateral ]">
+        {% if message_preview.previous is defined and message_preview.previous is not null %}
+        <a class="[ oocss-message-controls--item oocss-message-controls--item__d__lateral ]" href="{{ path('mc_admin_messages_' ~ subSection ~ '_preview', { 'message_id': message_preview.previous.id }) }}">Voir le message précédent</a>
+        {% endif %}
+        <a class="[ oocss-message-controls--item oocss-message-controls--item__d__lateral ]" href="{{ path('mc_admin_messages_reply', { 'message_id': message_preview.current.id }) }}">Répondre au message</a>
+        {% if message_preview.next is defined and message_preview.next is not null %}
+        <a class="[ oocss-message-controls--item oocss-message-controls--item__d__lateral ]" href="{{ path('mc_admin_messages_' ~ subSection ~ '_preview', { 'message_id': message_preview.next.id }) }}">Voir le message suivant</a>
+        {% endif %}
+    </div>
+</div>

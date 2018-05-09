@@ -1,0 +1,47 @@
+{% if page is not defined %}
+    {% set page = 1 %}
+{% endif %}
+{% set sent = paginate(sent).page(page) %}
+
+<h2 class="[ oocss-title-section ]">Derniers messages envoyés</h2>
+<table class="[ oocss-table ]">
+    <thead>
+        <tr class="[ oocss-table-head-row ]">
+            <th>Envoyé le</th>
+            <th>À</th>
+            <th>Destinataires</th>
+            <th>Sujet</th>
+        </tr>
+
+        {% for msg in sent %}
+            <tr class="[ oocss-table-row oocss-table-row__d__messages ]">
+                <td class="[ oocss-table-data ]">
+                    {{ msg.creationDate | date('d/m/Y') }}
+                </td>
+                <td class="[ oocss-table-data ]">
+                    {{ msg.creationDate | date('H:i') }}
+                </td>
+                <td class="[ oocss-table-data ]">
+                    {% for recipient in msg.recipients %}
+                        {{ recipient.username }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td class="[ oocss-table-data ]">
+                    <a  class="[ oocss-table-link ]" href="{{ path('mc_admin_messages_sent_preview', { 'message_id': msg.id }) }}">{{ msg.title }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </thead>
+</table>
+
+<div class="page-nav">
+    Page
+    {% for i in 1..sent|pages  %}
+        <a 
+        class="
+        page-button 
+        {% if loop|first or loop|last %}first-last {% endif %} {% if i == page %}current-page {% endif %}
+        " 
+        href="{{ path('mc_admin_messages_sent', {'page': i}) }}">{{ i }}</a>{% if not loop|last %} | {% endif %}
+    {% endfor %}
+</div>
