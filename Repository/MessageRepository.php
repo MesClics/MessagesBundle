@@ -1,8 +1,8 @@
 <?php
 
-namespace MC\MessagesBundle\Repository;
+namespace MesClics\MessagesBundle\Repository;
 
-use MC\UserBundle\Entity\User;
+use MesClics\UserBundle\Entity\User;
 /**
  * MessageRepository
  *

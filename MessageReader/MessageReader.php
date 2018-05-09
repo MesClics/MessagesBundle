@@ -1,8 +1,8 @@
 <?php
-namespace MC\MessagesBundle\MessageReader;
+namespace MesClics\MessagesBundle\MessageReader;
 
-use MC\MessagesBundle\Entity\Message;
-use MC\UserBundle\Entity\User;
+use MesClics\MessagesBundle\Entity\Message;
+use MesClics\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Doctrine\ORM\EntityManager;
 

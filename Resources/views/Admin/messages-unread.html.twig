@@ -15,7 +15,7 @@
         <td class="[ oocss-table-data ]">{{ message.creationDate | date('H:i') }}</td>
         <td class="[ oocss-table-data ]">{{ message.author }}</td>
         <td class="[ oocss-table-data ]">
-            <a class="[ oocss-table-link ]" href="{{ path('mc_admin_messages_unread_preview', { 'message_id': message.id }) }}">{{ message.title }}</a>
+            <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_unread_preview', { 'message_id': message.id }) }}">{{ message.title }}</a>
         </td>
     </tr>
     {% endfor %}

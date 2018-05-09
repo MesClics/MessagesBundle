@@ -1,5 +1,5 @@
 <?php
-namespace MC\MessagesBundle\MessagesCounter;
+namespace MesClics\MessagesBundle\MessagesCounter;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Doctrine\ORM\EntityManager;
@@ -29,7 +29,7 @@ class MessagesCounter{
             throw new InvalidArgumentException('Le nom du compteur ne peut être que l\'un des suivants : '.implode(', ', $this->counter_names));
         }
 
-        $messages_repo = $this->em->getRepository('MCMessagesBundle:Message');
+        $messages_repo = $this->em->getRepository('MesClicsMessagesBundle:Message');
         $method_name = 'count'.ucfirst($counter_name).'Messages';
         $result = $messages_repo->$method_name($this->token_storage->getToken()->getUser());
 

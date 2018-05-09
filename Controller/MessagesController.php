@@ -1,19 +1,19 @@
 <?php
-namespace MC\MessagesBundle\Controller;
+namespace MesClics\MessagesBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use MC\UserBundle\Entity\User;
-use MC\MessagesBundle\Entity\Message;
-use MC\MessagesBundle\Form\MessageType;
+use MesClics\UserBundle\Entity\User;
+use MesClics\MessagesBundle\Entity\Message;
+use MesClics\MessagesBundle\Form\MessageType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use MC\AdminBundle\Entity\Notification;
-use MC\MessagesBundle\Events\MessagesEvents;
-use MC\MessagesBundle\Events\MessagePostEvent;
-use MC\MessagesBundle\Events\MessageReadEvent;
+use MesClics\AdminBundle\Entity\Notification;
+use MesClics\MessagesBundle\Events\MessagesEvents;
+use MesClics\MessagesBundle\Events\MessagePostEvent;
+use MesClics\MessagesBundle\Events\MessageReadEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class MessagesController extends Controller{
@@ -23,7 +23,7 @@ class MessagesController extends Controller{
     public function homeAction(Request $request){        
         $args = $this->getHomeArgs($request);
 
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     /**
@@ -36,9 +36,9 @@ class MessagesController extends Controller{
         $args['newMessageForm'] = $newMessageForm->createView();
 
         if($request->isMethod('POST')){
-             return $this->redirectToRoute('mc_admin_messages_received');
+             return $this->redirectToRoute('mesclics_admin_messages_received');
         }
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     /**
@@ -52,9 +52,9 @@ class MessagesController extends Controller{
         $args['newMessageForm'] = $newMessageForm->createView();
 
         if($request->isMethod('POST')){
-             return $this->redirectToRoute('mc_admin_messages_received');
+             return $this->redirectToRoute('mesclics_admin_messages_received');
         }
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     /**
@@ -67,9 +67,9 @@ class MessagesController extends Controller{
         $newMessageForm = $this->newMessageForm($request, $message);
 
         if($request->isMethod('POST')){
-             return $this->redirectToRoute('mc_admin_messages_received');
+             return $this->redirectToRoute('mesclics_admin_messages_received');
         }
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     /**
@@ -84,9 +84,9 @@ class MessagesController extends Controller{
         $args['newMessageForm'] = $newMessageForm->createView();
 
         if($request->isMethod('POST')){
-             return $this->redirectToRoute('mc_admin_messages_received');
+             return $this->redirectToRoute('mesclics_admin_messages_received');
         }
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     /**
@@ -95,7 +95,7 @@ class MessagesController extends Controller{
     public function unreadMessagesAction(Request $request){
         $args = $this->getHomeArgs($request, null, 'unread');
 
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     /**
@@ -111,7 +111,7 @@ class MessagesController extends Controller{
         }
         $args = $this->getHomeArgs($request, $message, 'unread');
 
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
     
     /**
@@ -121,7 +121,7 @@ class MessagesController extends Controller{
         $args = $this->getHomeArgs($request, null, 'received');
         $args['page'] = $page;
 
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     /**
@@ -132,7 +132,7 @@ class MessagesController extends Controller{
         $args = $this->getHomeArgs($request, $message, 'received');
         $args['page'] = $page;
 
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     /**
@@ -143,7 +143,7 @@ class MessagesController extends Controller{
         $args = $this->getHomeArgs($request, null, 'sent');
         $args['page'] = $page;
 
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     /**
@@ -154,7 +154,7 @@ class MessagesController extends Controller{
         $args = $this->getHomeArgs($request, $message, 'sent');
         $args['page'] = $page;
 
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     /**
@@ -164,7 +164,7 @@ class MessagesController extends Controller{
         $args = $this->getHomeArgs($request, null, 'draft');
         $args['page'] = $page;
 
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     /**
@@ -175,7 +175,7 @@ class MessagesController extends Controller{
         $args = $this->getHomeArgs($request, $message, 'draft');
         $args['page'] = $page;
 
-        return $this->render('MCAdminBundle:Panel:messages.html.twig', $args);
+        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
     //MESSAGES
@@ -183,7 +183,7 @@ class MessagesController extends Controller{
         //on récupère les messages non lus de l'utilisateur
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        $messagesRepo = $em->getRepository('MCMessagesBundle:Message');
+        $messagesRepo = $em->getRepository('MesClicsMessagesBundle:Message');
         //TODO: messages groupés par conversation
         //messages non lus
         $unreadMessages = $messagesRepo->getUnreadMessages($user);
@@ -219,7 +219,7 @@ class MessagesController extends Controller{
 
     private function getMessagePreview(Message $message, $results){
          if($message){
-            $prevCurrNext = $this->get('mc_utils.prevcurrnext');
+            $prevCurrNext = $this->get('mesclics_utils.prevcurrnext');
             $prevCurrNext->handle($message, $results, true);
             $message_preview = $prevCurrNext;
             
@@ -281,7 +281,7 @@ class MessagesController extends Controller{
         
         //si la requête est de type POST on traite le formulaire
         if($request->isMethod('POST')){
-            $messageFormManager = $this->get('mc_messages.form_manager.new');
+            $messageFormManager = $this->get('mesclics_messages.form_manager.new');
             if($messageFormManager->handle($messageForm)->hasSucceeded()){
                 if(!$messageFormManager->getForm()->getData()->isDraft()){
                     //on ajoute un événement MessagePostEvent

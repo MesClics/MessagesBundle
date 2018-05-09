@@ -11,11 +11,11 @@
 
     <div class="[ oocss-message--controls oocss-message--controlls__d__lateral ]">
         {% if message_preview.previous is defined and message_preview.previous is not null %}
-        <a class="[ oocss-message-controls--item oocss-message-controls--item__d__lateral ]" href="{{ path('mc_admin_messages_' ~ subSection ~ '_preview', { 'message_id': message_preview.previous.id }) }}">Voir le message précédent</a>
+        <a class="[ oocss-message-controls--item oocss-message-controls--item__d__lateral ]" href="{{ path('mesclics_admin_messages_' ~ subSection ~ '_preview', { 'message_id': message_preview.previous.id }) }}">Voir le message précédent</a>
         {% endif %}
-        <a class="[ oocss-message-controls--item oocss-message-controls--item__d__lateral ]" href="{{ path('mc_admin_messages_reply', { 'message_id': message_preview.current.id }) }}">Répondre au message</a>
+        <a class="[ oocss-message-controls--item oocss-message-controls--item__d__lateral ]" href="{{ path('mesclics_admin_messages_reply', { 'message_id': message_preview.current.id }) }}">Répondre au message</a>
         {% if message_preview.next is defined and message_preview.next is not null %}
-        <a class="[ oocss-message-controls--item oocss-message-controls--item__d__lateral ]" href="{{ path('mc_admin_messages_' ~ subSection ~ '_preview', { 'message_id': message_preview.next.id }) }}">Voir le message suivant</a>
+        <a class="[ oocss-message-controls--item oocss-message-controls--item__d__lateral ]" href="{{ path('mesclics_admin_messages_' ~ subSection ~ '_preview', { 'message_id': message_preview.next.id }) }}">Voir le message suivant</a>
         {% endif %}
     </div>
 </div>

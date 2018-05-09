@@ -1,44 +1,44 @@
 services:
-#    mc_messages.example:
-#        class: MC\MessagesBundle\Example
+#    mesclics_messages.example:
+#        class: MesClics\MessagesBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
 
-    mc_messages.message_reader:
-        class: MC\MessagesBundle\MessageReader\MessageReader
+    mesclics_messages.message_reader:
+        class: MesClics\MessagesBundle\MessageReader\MessageReader
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@security.token_storage"
 
-    mc_messages.message_read_listener:
-        class: MC\MessagesBundle\Events\EventListeners\MessageReadListener
+    mesclics_messages.message_read_listener:
+        class: MesClics\MessagesBundle\Events\EventListeners\MessageReadListener
         arguments:
-            - "@mc_messages.message_reader"
+            - "@mesclics_messages.message_reader"
         tags:
-            - { name: kernel.event_listener, event: mc_messages.read_message, method: process }
+            - { name: kernel.event_listener, event: mesclics_messages.read_message, method: process }
     
-    mc_messages.form_manager.new:
-        class: MC\MessagesBundle\Form\FormManager\MessageFormManager
+    mesclics_messages.form_manager.new:
+        class: MesClics\MessagesBundle\Form\FormManager\MessageFormManager
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@request_stack"
             - "@session"
     
-    mc_messages.form_manager.user:
-        class: MC\MessagesBundle\Form\FormManager\UserMessageFormManager
+    mesclics_messages.form_manager.user:
+        class: MesClics\MessagesBundle\Form\FormManager\UserMessageFormManager
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@request_stack"
             - "@session"
 
-    mc_messages.counter:
-        class: MC\MessagesBundle\MessagesCounter\MessagesCounter
+    mesclics_messages.counter:
+        class: MesClics\MessagesBundle\MessagesCounter\MessagesCounter
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@security.token_storage"
 
-    mc_messages.twig.counter:
-        class: MC\MessagesBundle\Twig\MessagesCounterExtension
+    mesclics_messages.twig.counter:
+        class: MesClics\MessagesBundle\Twig\MessagesCounterExtension
         arguments:
-            - "@mc_messages.counter"
+            - "@mesclics_messages.counter"
         tags:
             - { name: twig.extension }

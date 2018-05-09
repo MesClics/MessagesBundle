@@ -1,15 +1,15 @@
 <?php
 
-namespace MC\MessagesBundle\Entity;
+namespace MesClics\MessagesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use MC\UserBundle\Entity\User;
+use MesClics\UserBundle\Entity\User;
 
 /**
  * Message
  *
  * @ORM\Table(name="mesclics_message")
- * @ORM\Entity(repositoryClass="MC\MessagesBundle\Repository\MessageRepository")
+ * @ORM\Entity(repositoryClass="MesClics\MessagesBundle\Repository\MessageRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Message
@@ -38,24 +38,24 @@ class Message
     private $content;
     
     /**
-     * @ORM\ManyToMany(targetEntity="\MC\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="\MesClics\UserBundle\Entity\User", cascade={"persist"})
      * @ORM\JoinTable(name="mesclics_readmessage_user")
      */
     private $readers;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\MC\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\MesClics\UserBundle\Entity\User", cascade={"persist"})
      */
     private $author;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\MC\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="\MesClics\UserBundle\Entity\User", cascade={"persist"})
      * @ORM\JoinTable(name="mesclics_receivedmessage_user")
      */
     private $recipients;
 
     /**
-     * @ORM\OneToOne(targetEntity="\MC\MessagesBundle\Entity\Message")
+     * @ORM\OneToOne(targetEntity="\MesClics\MessagesBundle\Entity\Message")
      */
     private $parent;
 
@@ -188,7 +188,7 @@ class Message
     /**
      * Set author
      *
-     * @param \MC\UserBundle\Entity\User $author
+     * @param \MesClics\UserBundle\Entity\User $author
      *
      * @return Message
      */
@@ -201,7 +201,7 @@ class Message
     /**
      * Get author
      *
-     * @return \MC\UserBundle\Entity\User
+     * @return \MesClics\UserBundle\Entity\User
      */
     public function getAuthor()
     {
@@ -211,7 +211,7 @@ class Message
     /**
      * Add recipient
      *
-     * @param \MC\UserBundle\Entity\User $recipient
+     * @param \MesClics\UserBundle\Entity\User $recipient
      *
      * @return Message
      */
@@ -225,7 +225,7 @@ class Message
     /**
      * Remove recipient
      *
-     * @param \MC\UserBundle\Entity\User $recipient
+     * @param \MesClics\UserBundle\Entity\User $recipient
      */
     public function removeRecipient(User $recipient)
     {
@@ -255,11 +255,11 @@ class Message
     /**
      * Add reader
      *
-     * @param \MC\UserBundle\Entity\User $reader
+     * @param \MesClics\UserBundle\Entity\User $reader
      *
      * @return Message
      */
-    public function addReader(\MC\UserBundle\Entity\User $reader)
+    public function addReader(\MesClics\UserBundle\Entity\User $reader)
     {
         $this->readers[] = $reader;
 
@@ -269,9 +269,9 @@ class Message
     /**
      * Remove reader
      *
-     * @param \MC\UserBundle\Entity\User $reader
+     * @param \MesClics\UserBundle\Entity\User $reader
      */
-    public function removeReader(\MC\UserBundle\Entity\User $reader)
+    public function removeReader(\MesClics\UserBundle\Entity\User $reader)
     {
         $this->readers->removeElement($reader);
     }
@@ -289,11 +289,11 @@ class Message
     /**
      * Set parent
      *
-     * @param \MC\MessagesBundle\Entity\Message $parent
+     * @param \MesClics\MessagesBundle\Entity\Message $parent
      *
      * @return Message
      */
-    public function setParent(\MC\MessagesBundle\Entity\Message $parent = null)
+    public function setParent(\MesClics\MessagesBundle\Entity\Message $parent = null)
     {
         $this->parent = $parent;
 
@@ -303,7 +303,7 @@ class Message
     /**
      * Get parent
      *
-     * @return \MC\MessagesBundle\Entity\Message
+     * @return \MesClics\MessagesBundle\Entity\Message
      */
     public function getParent()
     {

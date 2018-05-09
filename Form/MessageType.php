@@ -1,11 +1,11 @@
 <?php
 
-namespace MC\MessagesBundle\Form;
+namespace MesClics\MessagesBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use MC\UserBundle\Repository\UserRepository;
+use MesClics\UserBundle\Repository\UserRepository;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -32,7 +32,7 @@ class MessageType extends AbstractType
         if($options['isAdmin']){
             $builder
             ->add('recipients', EntityType::class, array(
-                'class' => 'MC\UserBundle\Entity\User',
+                'class' => 'MesClics\UserBundle\Entity\User',
                 'label' => 'sélectionner le(s) destinataire(s) du message',
                 'choice_label' => 'labelRecepient',
                 'multiple' => true,
@@ -43,7 +43,7 @@ class MessageType extends AbstractType
         } else if($options['isClient']){
             $builder
             ->add('recipients', EntityType::class, array(
-            'class' => 'MC\UserBundle\Entity\User',
+            'class' => 'MesClics\UserBundle\Entity\User',
             'label' => 'sélectionner le(s) destinataire(s) du message',
             'choice_label' => 'labelRecepient',
             'multiple' => true,
@@ -69,7 +69,7 @@ class MessageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'MC\MessagesBundle\Entity\Message',
+            'data_class' => 'MesClics\MessagesBundle\Entity\Message',
             'isAdmin' => null,
             'isClient' => null,
             'client' => null
@@ -81,7 +81,7 @@ class MessageType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'mc_messagesbundle_message';
+        return 'mesclics_messagesbundle_message';
     }
 
 

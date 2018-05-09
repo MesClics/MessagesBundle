@@ -1,7 +1,7 @@
 <?php
-namespace MC\MessagesBundle\Twig;
+namespace MesClics\MessagesBundle\Twig;
 
-use MC\MessagesBundle\MessagesCounter\MessagesCounter;
+use MesClics\MessagesBundle\MessagesCounter\MessagesCounter;
 
 class MessagesCounterExtension extends \Twig_Extension{
     private $counter;
@@ -21,6 +21,6 @@ class MessagesCounterExtension extends \Twig_Extension{
     }
 
     public function getName(){
-        return 'MCMessagesCounter';
+        return 'MesClicsMessagesCounter';
     }
 }

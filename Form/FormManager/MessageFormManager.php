@@ -1,7 +1,7 @@
 <?php
-namespace MC\MessagesBundle\Form\FormManager;
+namespace MesClics\MessagesBundle\Form\FormManager;
 
-use MC\UtilsBundle\FormManager\FormManager;
+use MesClics\UtilsBundle\FormManager\FormManager;
 
 class MessageFormManager extends FormManager{
     const ERROR_NOTIFICATION_SINGULIER = "Le message n'a pas pu être envoyé. Veuillez vérifier les données saisies.";

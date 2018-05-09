@@ -1,11 +1,11 @@
 <?php
 
-namespace MC\MessagesBundle\Form;
+namespace MesClics\MessagesBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use MC\UserBundle\Repository\UserRepository;
+use MesClics\UserBundle\Repository\UserRepository;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -25,7 +25,7 @@ class UserMessageType extends AbstractType
     }
 
     public function getParent(){
-        return 'MC\MessagesBundle\Form\MessageType';
+        return 'MesClics\MessagesBundle\Form\MessageType';
     }
   
     /**
@@ -33,7 +33,7 @@ class UserMessageType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'mc_messagesbundle_message';
+        return 'mesclics_messagesbundle_message';
     }
 
 

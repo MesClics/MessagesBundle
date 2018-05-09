@@ -1,9 +1,9 @@
 <?php
 
-namespace MC\MessagesBundle\Events\EventListeners;
+namespace MesClics\MessagesBundle\Events\EventListeners;
 
-use MC\MessagesBundle\MessageReader\MessageReader;
-use MC\MessagesBundle\Events\MessageReadEvent;
+use MesClics\MessagesBundle\MessageReader\MessageReader;
+use MesClics\MessagesBundle\Events\MessageReadEvent;
 
 class MessageReadListener{
     private $message_reader;

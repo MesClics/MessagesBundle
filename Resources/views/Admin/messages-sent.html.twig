@@ -27,7 +27,7 @@
                     {% endfor %}
                 </td>
                 <td class="[ oocss-table-data ]">
-                    <a  class="[ oocss-table-link ]" href="{{ path('mc_admin_messages_sent_preview', { 'message_id': msg.id }) }}">{{ msg.title }}</a>
+                    <a  class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_sent_preview', { 'message_id': msg.id }) }}">{{ msg.title }}</a>
                 </td>
             </tr>
         {% endfor %}
@@ -42,6 +42,6 @@
         page-button 
         {% if loop|first or loop|last %}first-last {% endif %} {% if i == page %}current-page {% endif %}
         " 
-        href="{{ path('mc_admin_messages_sent', {'page': i}) }}">{{ i }}</a>{% if not loop|last %} | {% endif %}
+        href="{{ path('mesclics_admin_messages_sent', {'page': i}) }}">{{ i }}</a>{% if not loop|last %} | {% endif %}
     {% endfor %}
 </div>

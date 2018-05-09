@@ -1,8 +1,8 @@
 <?php
-namespace MC\MessagesBundle\Events;
+namespace MesClics\MessagesBundle\Events;
 
 use Symfony\Component\EventDispatcher\Event;
-use MC\MessagesBundle\Entity\Message;
+use MesClics\MessagesBundle\Entity\Message;
 
 class MessageReadEvent extends Event{
     protected $message;
