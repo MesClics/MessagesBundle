@@ -22,7 +22,6 @@ class MessagesController extends Controller{
      */
     public function homeAction(Request $request){        
         $args = $this->getHomeArgs($request);
-
         return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
@@ -182,9 +181,12 @@ class MessagesController extends Controller{
     private function getHomeArgs(Request $request, Message $message = null, $subSection = null){
         //on récupère les messages non lus de l'utilisateur
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $em = $this->getDoctrine()->getManager();
         $messages_retriever = $this->get('mesclics_messages.retriever');
-        // $messagesRepo = $em->getRepository('MesClicsMessagesBundle:Message');
+        $args = array(
+            'currentSection' => 'messages',
+            'subSection' => $subSection
+        );
+     
         //TODO: messages groupés par conversation
         //messages non lus
         //on définit les order_params pour le messages_retriever
@@ -194,36 +196,44 @@ class MessagesController extends Controller{
             'message' => 'content',
             'auteur' => 'author'
         );
-        
         $messages_retriever->addOrderParams($order_params);
-        $unreadMessages = $messages_retriever->setFilter('unread')->getMessages();
-        $receivedMessages = $messages_retriever->setFilter('received')->getMessages();
-        $sentMessages = $messages_retriever->setFilter('sent')->getMessages();
-        $draftMessages = $messages_retriever->setFilter('draft')->getMessages();
 
-        // $unreadMessages = $messagesRepo->getUnreadMessages($user);
-        // //tous les messages
-        // $receivedMessages = $messagesRepo->getReceivedMessages($user);
-        // //derniers messages envoyés
-        // $sentMessages = $messagesRepo->getSentMessages($user);
-        // //brouillons
-        // $draftMessages = $messagesRepo->getDraftMessages($user);
-        //nouveau message
-        if($message){
-            $newMessage = $message->getId();
+        
+        //on pass les éventuels paramètres de tris de la requête au messages_retriever
+        if($request->query->get('filter')){
+            $messages_retriever->setFilter($request->query->get('filter'));
+        }
+        
+        if($request->query->get('order-by')){
+            $messages_retriever->setOrderBy($request->query->get('order-by'));
+        }
+        if($request->query->get('sort')){
+            $messages_retriever->setOrder($request->query->get('sort'));
         } else{
-            $newMessage = null;
+            if(preg_match('/^date-/',$messages_retriever->getOrderBy())){
+                $messages_retriever->setOrder('DESC');
+            } else{
+                $messages_retriever->setOrder('ASC');
+            }
         }
 
-        $args = array(
-            'unread' => $unreadMessages,
-            'received' => $receivedMessages,
-            'sent' => $sentMessages,
-            'draft' => $draftMessages,
-            'new' => $newMessage,
-            'currentSection' => 'messages',
-            'subSection' => $subSection,
+        $args['sort_params'] = array(
+            'filter' => $messages_retriever->getFilter(),
+            'order_by' => $messages_retriever->getOrderBy(),
+            'sort' => $messages_retriever->getOrder()
         );
+
+        $args['unreadMessages'] = $messages_retriever->setFilter('unread')->getMessages();
+        $args['receivedMessages'] = $messages_retriever->setFilter('received')->getMessages();
+        $args['sentMessages'] = $messages_retriever->setFilter('sent')->getMessages();
+        $args['draftMessages'] = $messages_retriever->setFilter('draft')->getMessages();
+
+        //nouveau message
+        if($message){
+            $args['new'] = $message->getId();
+        } else{
+            $args['new'] = null;
+        }
 
         //on récupère l'éventuel message passé en argument
         if($message && $subSection){

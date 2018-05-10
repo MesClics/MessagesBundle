@@ -1,19 +1,50 @@
-<h2 class="[ oocss-title-section ]">{{ 'messages.sections.inbox'|trans }}</h2>
+{% if sort_params.sort is not defined or sort_params.sort is same as ('ASC') %}
+    {% set sort_param_inv = 'DESC' %}
+{% else %}
+    {% set sort_param_inv = 'ASC' %}
+{% endif %}
+
+<h2 class="[ oocss-title-section ]">Boîte de réception</h2>
 <table class="[ oocss-table ]" id="messages_list">
     <thead>
         <tr class="[ oocss-table-head-row ]">
-            <th>le</th>
+            <th>
+                {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}
+                    {% set sort_param = sort_param_inv %}
+                {% else %}
+                    {% set sort_param = 'ASC' %}
+                {% endif %}
+                <a href="{{ path('mesclics_admin_messages_received', {'filter': 'received', 'order-by': 'date-creation', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}oocss-active
+                {% endif %}] sort-{{ sort_params.sort|default('asc') }}">le</a>
+            </th>
             <th>à</th>
-            <th>de</th>
-            <th>objet</th>
+            <th>
+                {% if sort_params.order_by is defined and sort_params.order_by is same as ('auteur') %}
+                    {% set sort_param = sort_param_inv %}
+                {% else %}
+                    {% set sort_param = 'ASC' %}
+                {% endif %}
+                <a href="{{ path('mesclics_admin_messages_received', {'filter': 'received', 'order-by': 'auteur', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('auteur') %}oocss-active
+                {% endif %}] sort-{{ sort_params.sort|default('asc') }}">de</a>
+            </th>
+            <th>
+                {% if sort_params.order_by is defined and sort_params.order_by is same as ('titre') %}
+                    {% set sort_param = sort_param_inv %}
+                {% else %}
+                    {% set sort_param = 'ASC' %}
+                {% endif %}
+                <a href="{{ path('mesclics_admin_messages_received', {'filter': 'received', 'order-by': 'titre', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('titre') %}oocss-active
+                {% endif %}] sort-{{ sort_params.sort|default('asc') }}">objet</a>
+            </th>
         </tr>
     </thead>
-    {% if received|length >= 1 %}
+
+    {% if receivedMessages|length >= 1 %}
         {% if page is not defined %}
             {% set page = 1 %}
         {% endif %}
 
-        {% set currItems = paginate(received).page(page) %}
+        {% set currItems = paginate(receivedMessages).page(page) %}
 
         {% for msg in currItems %}
             <tr class="[ oocss-table-row oocss-table-row__d__messages {% if msg.hasBeenRead(app.user) == false %}oocss-table-row__d__messages__s__unread {% endif %}]">
