@@ -11,12 +11,11 @@ use MesClics\UserBundle\Entity\User;
  */
 class MessageRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getUnreadMessagesQB(User $user){
+    public function getUnreadMessagesQB(User $user, $order_by = 'creationDate', $order = 'DESC', $limit = null){
         $qb = $this
         ->createQueryBuilder('messages')
         ->andWhere('messages.draft != true')
-        ->orderBy('messages.creationDate', 'DESC')
-        ;
+        ->orderBy('messages.' . $order_by, $order);
         //TEST RECIPIENTS
         $qb
         ->andWhere(':user MEMBER OF messages.recipients')
@@ -25,11 +24,15 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere(':user NOT MEMBER OF messages.readers')
             ->setParameter('user', $user)
         ;
+        
+        if($limit){
+            $qb->setMaxResult($limit);
+        }
         return $qb;
     }
 
-    public function getUnreadMessages(User $user){
-        $qb = $this->getUnreadMessagesQB($user);
+    public function getUnreadMessages(User $user, $order_by = 'creationDate', $order = 'DESC', $limit = null){
+        $qb = $this->getUnreadMessagesQB($user, $order_by, $order, $limit = null);
         return $qb->getQuery()->getResult();
     }
 
@@ -40,23 +43,24 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function getSentMessagesQB(User $user, $max = null){
+    public function getSentMessagesQB(User $user, $order_by = 'creationDate', $order = 'DESC', $limit = null){
         $qb = $this->createQueryBuilder('messages')
         ->andWhere('messages.author = :author')
             ->setParameter('author', $user)
         ->andWhere('messages.draft = :draft')
             ->setParameter('draft', false)
-        ->orderBy('messages.creationDate', 'DESC');
-        if($max){
+        ->orderBy('messages.' . $order_by, $order);
+
+        if($limit){
             $qb
-            ->setMaxResults($max);
+            ->setMaxResults($limit);
         }
 
         return $qb;
     }
 
-    public function getSentMessages(User $user, $max = null){
-        $qb = $this->getSentMessagesQB($user, $max);
+    public function getSentMessages(User $user, $order_by = 'creationDate', $order = 'DESC', $limit = null){
+        $qb = $this->getSentMessagesQB($user, $order_by, $order, $limit = null);
         return $qb->getQuery()->getResult();
     }
 
@@ -66,25 +70,25 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function getDraftMessagesQB(User $user, $max = null){
+    public function getDraftMessagesQB(User $user, $order_by = 'creationDate', $order = 'DESC', $limit = null){
         $qb = $this->createQueryBuilder('messages');
         $qb
         ->andWhere('messages.author = :user')
             ->setParameter('user', $user)
         ->andWhere('messages.draft = :draft')
             ->setParameter('draft', true)
-        ->orderBy('messages.creationDate', 'DESC');
+        ->orderBy('messages.' . $order_by, $order);
 
-        if($max){
+        if($limit){
             $qb
-            ->setMaxResults($max);
+            ->setMaxResults($limit);
         }
 
         return $qb;
     }
 
-    public function getDraftMessages(User $user, $max = null){
-        $qb = $this->getDraftMessagesQB($user, $max);
+    public function getDraftMessages(User $user, $order_by = 'creationDate', $order = 'DESC', $limit = null){
+        $qb = $this->getDraftMessagesQB($user, $order_by, $order, $limit);
         return $qb->getQuery()->getResult();
     }
 
@@ -94,28 +98,29 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function getReceivedMessagesQB(User $user, $perPage, $page){
-        $offset = ($page - 1) * $perPage;
+    public function getReceivedMessagesQB(User $user, $order_by = 'creationDate', $order = 'DESC', $limit = null){
         $qb = $this
         ->createQueryBuilder('messages')
         ->andWhere(':user MEMBER OF messages.recipients')
             ->setParameter('user', $user)
         ->andWhere('messages.draft = :draft')
             ->setParameter('draft', false)
-        ->orderBy('messages.creationDate', 'DESC')
-        ->setFirstResult($offset)
-        ->setMaxResults($perPage);
+        ->orderBy('messages.' . $order_by, $order);
 
+        if($limit){
+            $qb->setMaxResults($limit);
+        }
+       
         return $qb;
     }
 
-    public function getReceivedMessages(User $user, $perPage = 1000, $page = 1){
-        $qb = $this->getReceivedMessagesQB($user, $perPage, $page);
+    public function getReceivedMessages(User $user, $order_by = 'creationDate', $order = 'DESC', $limit = null){
+        $qb = $this->getReceivedMessagesQB($user, $order_by, $order, $limit);
         return $qb->getQuery()->getResult();
     }
 
-    public function getReceivedMessagesGroupedByConversation(User $user, $perPage = 1000, $page = 1){
-        $qb = $this->getReceivedMessagesQB($user, $perPage,$page);
+    public function getReceivedMessagesGroupedByConversation(User $user, $order_by = 'creationDate', $order = 'DESC', $limit = null){
+        $qb = $this->getReceivedMessagesQB($user, $order_by, $order, $limit);
         //$qb
         // ->andWhere('messages.parent != :parent')
         //     ->setParameter('parent', null);
@@ -144,8 +149,8 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
         return $results;
     }
 
-    public function countReceivedMessages(User $user, $perPage = 1000, $page = 1){
-        $qb = $this->getReceivedMessagesQB($user, $perPage, $page);
+    public function countReceivedMessages(User $user){
+        $qb = $this->getReceivedMessagesQB($user);
         $qb->select('COUNT(messages)');
 
         return $qb->getQuery()->getSingleScalarResult();
