@@ -183,16 +183,31 @@ class MessagesController extends Controller{
         //on récupère les messages non lus de l'utilisateur
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        $messagesRepo = $em->getRepository('MesClicsMessagesBundle:Message');
+        $messages_retriever = $this->get('mesclics_messages.retriever');
+        // $messagesRepo = $em->getRepository('MesClicsMessagesBundle:Message');
         //TODO: messages groupés par conversation
         //messages non lus
-        $unreadMessages = $messagesRepo->getUnreadMessages($user);
-        //tous les messages
-        $receivedMessages = $messagesRepo->getReceivedMessages($user);
-        //derniers messages envoyés
-        $sentMessages = $messagesRepo->getSentMessages($user);
-        //brouillons
-        $draftMessages = $messagesRepo->getDraftMessages($user);
+        //on définit les order_params pour le messages_retriever
+        $order_params = array(
+            'date-creation' => 'creationDate',
+            'titre' => 'title',
+            'message' => 'content',
+            'auteur' => 'author'
+        );
+
+        $messages_retriever->addOrderParams($order_params);
+        $unreadMessages = $messages_retriever->setFilter('unread')->getMessages();
+        $receivedMessages = $messages_retriever->setFilter('received')->getMessages();
+        $sentMessages = $messages_retriever->setFilter('sent')->getMessages();
+        $draftMessages = $messages_retriever->setFilter('draft')->getMessages();
+
+        // $unreadMessages = $messagesRepo->getUnreadMessages($user);
+        // //tous les messages
+        // $receivedMessages = $messagesRepo->getReceivedMessages($user);
+        // //derniers messages envoyés
+        // $sentMessages = $messagesRepo->getSentMessages($user);
+        // //brouillons
+        // $draftMessages = $messagesRepo->getDraftMessages($user);
         //nouveau message
         if($message){
             $newMessage = $message->getId();
