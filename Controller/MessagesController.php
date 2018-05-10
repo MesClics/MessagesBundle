@@ -194,7 +194,7 @@ class MessagesController extends Controller{
             'message' => 'content',
             'auteur' => 'author'
         );
-
+        
         $messages_retriever->addOrderParams($order_params);
         $unreadMessages = $messages_retriever->setFilter('unread')->getMessages();
         $receivedMessages = $messages_retriever->setFilter('received')->getMessages();
