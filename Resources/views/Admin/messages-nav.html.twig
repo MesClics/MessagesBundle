@@ -38,7 +38,7 @@
 
             {% if countMessages('sent') > 0 %}
                 <li>
-                    <a class="[ oocss-button oocss-discret oocss-headed-block oocss-horizontal oocss-s ] messages-draft" href="{{ path('mesclics_admin_messages_sent') }}">Envoyés<span class="[ oocss-index ]">{{ countMessages('sent') }}</span></a>
+                    <a class="[ oocss-button oocss-discret oocss-headed-block oocss-horizontal oocss-s ] messages-sent" href="{{ path('mesclics_admin_messages_sent') }}">Envoyés<span class="[ oocss-index ]">{{ countMessages('sent') }}</span></a>
                     
                 </li>
             {% endif %}
