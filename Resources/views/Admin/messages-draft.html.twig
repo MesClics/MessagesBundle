@@ -1,12 +1,40 @@
+{% if sort_params.sort is not defined or sort_params.sort is same as ('ASC') %}
+    {% set sort_param_inv = 'DESC' %}
+{% else %}
+    {% set sort_param_inv = 'ASC' %}
+{% endif %}
+
 <h2 class="[ oocss-title-section ]">Brouillons</h2>
 <table class="[ oocss-table ]">
     <thead>
         <tr class="[ oocss-table-head-row ]">
-                <th>le</th>
-                <th>à</th>
-                <th>pour</th>
-                <th>objet</th>
-                <th>début du message</th>
+                <th>
+                    {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}
+                        {% set sort_param = sort_param_inv %}
+                    {% else %}
+                        {% set sort_param = 'ASC' %}
+                    {% endif %}
+                    <a href="{{ path('mesclics_admin_messages_received', {'filter': 'draft', 'order-by': 'date-creation', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}oocss-active
+                    {% endif %}] sort-{{ sort_params.sort|default('asc') }}">le</a>
+                </th>
+                <th>
+                    à
+                </th>
+                <th>
+                    pour
+                </th>
+                <th>
+                    {% if sort_params.order_by is defined and sort_params.order_by is same as ('titre') %}
+                        {% set sort_param = sort_param_inv %}
+                    {% else %}
+                        {% set sort_param = 'ASC' %}
+                    {% endif %}
+                    <a href="{{ path('mesclics_admin_messages_received', {'filter': 'draft', 'order-by': 'titre', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('titre') %}oocss-active
+                    {% endif %}] sort-{{ sort_params.sort|default('asc') }}">objet</a>
+                </th>
+                <th>
+                    début du message
+                </th>
         </tr>
     </thead>
     {% if draftMessages|length >= 1 %}
