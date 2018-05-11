@@ -19,13 +19,23 @@
 
     {% for msg in currItems %}
         <tr class="[ oocss-table-row oocss-table-row__d__messages ]">
-            <td class="[ oocss-table-data ]">{{ msg.creationDate|date('d/m/Y') }}</td>
-            <td class="[ oocss-table-data ]">{{ msg.creationDate|date('H:i') }}</td>
             <td class="[ oocss-table-data ]">
-                {% for recipient in msg.recipients %} {{ recipient.username }}{% if not loop.last %}, {% endif %} {% endfor %}
+                {{ msg.creationDate|date('d/m/Y') }}
             </td>
-            <td class="[ oocss-table-data ]"><a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_draft_preview', { 'message_id': msg.id })}}">{{ msg.title }}</a></td>
-            <td class="[ oocss-table-data ]">{{ msg.content|slice(0, 30) }}</td>
+            <td class="[ oocss-table-data ]">
+                {{ msg.creationDate|date('H:i') }}
+            </td>
+            <td class="[ oocss-table-data ]">
+                {% for recipient in msg.recipients %}
+                    {{ recipient.username }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+            <td class="[ oocss-table-data ]">
+                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_draft_preview', { 'message_id': msg.id })}}">{{ msg.title }}</a>
+            </td>
+            <td class="[ oocss-table-data ]">
+                {{ msg.content|slice(0, 30) }}
+            </td>
             <td class="[ oocss-table-data ]">
                 <a  class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_new_preview', { 'message_id': msg.id }) }}">Modifier</a>
             </td>

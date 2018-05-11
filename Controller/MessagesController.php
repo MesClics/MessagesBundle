@@ -237,7 +237,7 @@ class MessagesController extends Controller{
 
         //on récupère l'éventuel message passé en argument
         if($message && $subSection){
-            $args['message_preview'] = $this->getMessagePreview($message, $args[$subSection]);
+            $args['message_preview'] = $this->getMessagePreview($message, $args[$subSection.'Messages']);
         }
         return $args;
     }
