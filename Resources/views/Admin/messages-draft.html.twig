@@ -9,18 +9,34 @@
                 <th>début du message</th>
         </tr>
     </thead>
-    {% for msg in draft %}
-    <tr class="[ oocss-table-row oocss-table-row__d__messages ]">
-        <td class="[ oocss-table-data ]">{{ msg.creationDate|date('d/m/Y') }}</td>
-        <td class="[ oocss-table-data ]">{{ msg.creationDate|date('H:i') }}</td>
-        <td class="[ oocss-table-data ]">
-            {% for recipient in msg.recipients %} {{ recipient.username }}{% if not loop.last %}, {% endif %} {% endfor %}
-        </td>
-        <td class="[ oocss-table-data ]"><a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_draft_preview', { 'message_id': msg.id })}}">{{ msg.title }}</a></td>
-        <td class="[ oocss-table-data ]">{{ msg.content|slice(0, 30) }}</td>
-        <td class="[ oocss-table-data ]">
-            <a  class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_new_preview', { 'message_id': msg.id }) }}">Modifier</a>
-        </td>
-    </tr>
+    {% if draftMessages|length >= 1 %}
+        {% if page is not defined %}
+            {% set page = 1 %}
+        {% endif %}
+    
+        {% set currItems = paginate(draftMessages).page(page) %}
+    {% endif %}
+
+    {% for msg in currItems %}
+        <tr class="[ oocss-table-row oocss-table-row__d__messages ]">
+            <td class="[ oocss-table-data ]">{{ msg.creationDate|date('d/m/Y') }}</td>
+            <td class="[ oocss-table-data ]">{{ msg.creationDate|date('H:i') }}</td>
+            <td class="[ oocss-table-data ]">
+                {% for recipient in msg.recipients %} {{ recipient.username }}{% if not loop.last %}, {% endif %} {% endfor %}
+            </td>
+            <td class="[ oocss-table-data ]"><a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_draft_preview', { 'message_id': msg.id })}}">{{ msg.title }}</a></td>
+            <td class="[ oocss-table-data ]">{{ msg.content|slice(0, 30) }}</td>
+            <td class="[ oocss-table-data ]">
+                <a  class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_new_preview', { 'message_id': msg.id }) }}">Modifier</a>
+            </td>
+        </tr>
     {% endfor %}
 </table>
+
+{% if page > 1 %}
+    <div class="page-nav">
+        {% for i in 1..currItems|pages %}
+            <a href="{{ path('mesclics_admin_messages_draft', {'page': i}) }}" class="[ oocss-button ] page">{{ i }}</a>{% if not loop|last %} | {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
