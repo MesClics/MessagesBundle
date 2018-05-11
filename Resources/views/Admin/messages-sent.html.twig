@@ -14,7 +14,7 @@
                 {% else %}
                     {% set sort_param = 'ASC' %}
                 {% endif %}
-                <a href="{{ path('mesclics_admin_messages_sent', {'filter': 'sent', 'order-by': 'date-creation', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}oocss-active
+                <a href="{{ path('mesclics_admin_messages', {'filter': 'sent', 'order-by': 'date-creation', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}oocss-active
                 {% endif %}] sort-{{ sort_params.sort|default('asc') }}">Envoyé le</a>
             </th>
             <th>À</th>
@@ -25,7 +25,7 @@
                 {% else %}
                     {% set sort_param = 'ASC' %}
                 {% endif %}
-                <a href="{{ path('mesclics_admin_messages_sent', {'filter': 'sent', 'order-by': 'titre', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('titre') %}oocss-active
+                <a href="{{ path('mesclics_admin_messages', {'filter': 'sent', 'order-by': 'titre', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('titre') %}oocss-active
                 {% endif %}] sort-{{ sort_params.sort|default('asc') }}">Objet</a>
             </th>
         </tr>
@@ -39,18 +39,18 @@
         {% for msg in currItems %}
             <tr class="[ oocss-table-row oocss-table-row__d__messages ]">
                 <td class="[ oocss-table-data ]">
-                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_sent_preview', { 'message_id': msg.id }) }}">{{ msg.creationDate | date('d/m/Y') }}</a>
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'sent', 'message_id': msg.id }) }}">{{ msg.creationDate | date('d/m/Y') }}</a>
                 </td>
                 <td class="[ oocss-table-data ]">
-                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_sent_preview', { 'message_id': msg.id }) }}">{{ msg.creationDate | date('H:i') }}</a>
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'sent', 'message_id': msg.id }) }}">{{ msg.creationDate | date('H:i') }}</a>
                 </td>
                 <td class="[ oocss-table-data ]">
-                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_sent_preview', { 'message_id': msg.id }) }}">
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'sent', 'message_id': msg.id }) }}">
                         {% for recipient in msg.recipients %} {{ recipient.username }}{% if not loop.last %}, {% endif %} {% endfor %}
                     </a>
                 </td>
                 <td class="[ oocss-table-data ]">
-                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_sent_preview', { 'message_id': msg.id }) }}">{{ msg.title }}</a>
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'sent', 'message_id': msg.id }) }}">{{ msg.title }}</a>
                 </td>
             </tr>
         {% endfor %}

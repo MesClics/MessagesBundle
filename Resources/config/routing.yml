@@ -3,68 +3,27 @@ mesclics_admin_messages:
     defaults: 
         _controller: MesClicsMessagesBundle:Messages:home
 
-mesclics_admin_messages_received:
-    path: /inbox/page{page}/
-    defaults: 
-        _controller: MesClicsMessagesBundle:Messages:receivedMessages
-        page: 1
+# mesclics_admin_messages_preview:
+#     path: /{message_id}/
+#     defaults:
+#         _controller: MesClicsMessagesBundle:Messages:home
 
-mesclics_admin_messages_received_preview:
-    path: /inbox/page{page}/{message_id}/
-    defaults: 
-        _controller: MesClicsMessagesBundle:Messages:receivedMessagesWithPreview
-        page: 1
+# mesclics_admin_messages_new:
+#     path: /new/
+#     defaults:
+#         _controller: MesClicsMessagesBundle:Messages:new
 
-mesclics_admin_messages_sent:
-    path: /sent/page{page}/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:sentMessages
-        page: 1
+# mesclics_admin_messages_new_preview:
+#     path: /new/{message_id}/
+#     defaults:
+#         _controller: MesClicsMessagesBundle:Messages:newWithPreview
 
-mesclics_admin_messages_sent_preview:
-    path: /sent/page{page}/{message_id}/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:sentMessagesWithPreview
-        page: 1
+# mesclics_admin_messages_new_to:
+#     path: /new/{to}/
+#     defaults:
+#         _controller: MesClicsMessagesBundle:Messages:newTo
 
-mesclics_admin_messages_draft:
-    path: /draft/page{page}/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:draftMessages
-        page: 1
-
-mesclics_admin_messages_draft_preview:
-    path: /draft/page{page}/{message_id}/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:draftMessagesWithPreview
-        page: 1
-
-mesclics_admin_messages_unread:
-    path: /inbox-new/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:unreadMessages
-
-mesclics_admin_messages_unread_preview:
-    path: /inbox-new/{message_id}/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:unreadMessagesWithPreview
-
-mesclics_admin_messages_new:
-    path: /new/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:new
-
-mesclics_admin_messages_new_preview:
-    path: /new/{message_id}/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:newWithPreview
-
-mesclics_admin_messages_new_to:
-    path: /new/{to}/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:newTo
-
-mesclics_admin_messages_reply:
-    path: /new/{message_id}/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:reply
+# mesclics_admin_messages_reply:
+#     path: /{message_id}/reply
+#     defaults:
+#         _controller: MesClicsMessagesBundle:Messages:reply

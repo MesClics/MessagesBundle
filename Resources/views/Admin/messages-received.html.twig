@@ -14,7 +14,7 @@
                 {% else %}
                     {% set sort_param = 'ASC' %}
                 {% endif %}
-                <a href="{{ path('mesclics_admin_messages_received', {'filter': 'received', 'order-by': 'date-creation', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}oocss-active
+                <a href="{{ path('mesclics_admin_messages', {'filter': 'received', 'order-by': 'date-creation', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}oocss-active
                 {% endif %}] sort-{{ sort_params.sort|default('asc') }}">le</a>
             </th>
             <th>à</th>
@@ -24,7 +24,7 @@
                 {% else %}
                     {% set sort_param = 'ASC' %}
                 {% endif %}
-                <a href="{{ path('mesclics_admin_messages_received', {'filter': 'received', 'order-by': 'auteur', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('auteur') %}oocss-active
+                <a href="{{ path('mesclics_admin_messages', {'filter': 'received', 'order-by': 'auteur', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('auteur') %}oocss-active
                 {% endif %}] sort-{{ sort_params.sort|default('asc') }}">de</a>
             </th>
             <th>
@@ -33,7 +33,7 @@
                 {% else %}
                     {% set sort_param = 'ASC' %}
                 {% endif %}
-                <a href="{{ path('mesclics_admin_messages_received', {'filter': 'received', 'order-by': 'titre', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('titre') %}oocss-active
+                <a href="{{ path('mesclics_admin_messages', {'filter': 'received', 'order-by': 'titre', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('titre') %}oocss-active
                 {% endif %}] sort-{{ sort_params.sort|default('asc') }}">objet</a>
             </th>
         </tr>
@@ -49,16 +49,16 @@
         {% for msg in currItems %}
             <tr class="[ oocss-table-row oocss-table-row__d__messages {% if msg.hasBeenRead(app.user) == false %}oocss-table-row__d__messages__s__unread {% endif %}]">
                 <td class="[ oocss-table-data ]">
-                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_received_preview', { 'message_id': msg.id }) }}">{{ msg.creationDate | date('d/m/Y') }}</a>
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'message_id': msg.id }) }}">{{ msg.creationDate | date('d/m/Y') }}</a>
                 </td>
                 <td class="[ oocss-table-data ]">
-                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_received_preview', { 'message_id': msg.id }) }}">{{ msg.creationDate | date('H:i') }}</a>
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'message_id': msg.id }) }}">{{ msg.creationDate | date('H:i') }}</a>
                 </td>
                 <td class="[ oocss-table-data ]">
-                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_received_preview', { 'message_id': msg.id }) }}">{{ msg.author.username }}</a>
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'message_id': msg.id }) }}">{{ msg.author.username }}</a>
                 </td>
                 <td class="[ oocss-table-data ]">
-                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_received_preview', { 'message_id': msg.id }) }}">{{ msg.title }}</a>
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'message_id': msg.id }) }}">{{ msg.title }}</a>
                 </td>
             </tr>
         {% endfor %}

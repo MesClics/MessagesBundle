@@ -20,227 +20,161 @@ class MessagesController extends Controller{
     /**
      * @Security("has_role('ROLE_CLIENT')")
      */
-    public function homeAction(Request $request){        
-        $args = $this->getHomeArgs($request);
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     */
-    public function newAction(Request $request){
-        $args = $this->getHomeArgs($request, null, 'new');
-
-        $newMessageForm = $this->newMessageForm($request);
-        $args['newMessageForm'] = $newMessageForm->createView();
-
+    public function homeAction(Request $request){
+        if($request->query->get('message_id')){
+            $repo = $this->getDoctrine()->getManager()->getRepository('MesClicsMessagesBundle:Message');
+            $message = $repo->find($request->query->get('message_id'));
+        } else{
+            $message = null;
+        }
+        
+        $args = $this->getHomeArgs($request, $message);
+        // var_dump($args[$args['subSection'].'Messages']);die();
         if($request->isMethod('POST')){
-             return $this->redirectToRoute('mesclics_admin_messages_received');
+            return $this->redirectToRoute('mesclics_admin_messages');
         }
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     * @ParamConverter("to", options={"mapping": {"to": "id"}})
-     */
-    public function newToAction(User $to, Request $request){
-        $args = $this->getHomeArgs($request, null, 'new');
-
-        $newMessageForm = $this->newMessageForm($request, null, $to);
-        $args['newMessageForm'] = $newMessageForm->createView();
-
-        if($request->isMethod('POST')){
-             return $this->redirectToRoute('mesclics_admin_messages_received');
-        }
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
-     */
-    public function replyAction(Message $message, Request $request){
-        $args = $this->getHomeArgs($request, null, 'new');
-
-        $newMessageForm = $this->newMessageForm($request, $message);
-
-        if($request->isMethod('POST')){
-             return $this->redirectToRoute('mesclics_admin_messages_received');
-        }
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
-     */
-    public function newWithPreviewAction(Message $message, Request $request){
-        $args = $this->getHomeArgs($request, null, 'new');
-        $args['initialMessage'] = $message;
-
-        $newMessageForm = $this->newMessageForm($request, $message);
-        $args['newMessageForm'] = $newMessageForm->createView();
-
-        if($request->isMethod('POST')){
-             return $this->redirectToRoute('mesclics_admin_messages_received');
-        }
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     */
-    public function unreadMessagesAction(Request $request){
-        $args = $this->getHomeArgs($request, null, 'unread');
 
         return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
-     */
-    public function unreadMessagesWithPreviewAction(Message $message, Request $request){
-        if($message){
-            $em = $this->getDoctrine()->getManager();
-            $user = $this->get('security.token_storage')->getToken()->getUser();
-            $message->addReader($user);
-            $em->flush();
-        }
-        $args = $this->getHomeArgs($request, $message, 'unread');
-
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-    
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     */
-    public function receivedMessagesAction($page, Request $request){
-        $args = $this->getHomeArgs($request, null, 'received');
-        $args['page'] = $page;
-
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
-     */
-    public function receivedMessagesWithPreviewAction($page, Message $message, Request $request){
-        $args = $this->getHomeArgs($request, $message, 'received');
-        $args['page'] = $page;
-
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     * 
-     */
-    public function sentMessagesAction($page, Request $request){
-        $args = $this->getHomeArgs($request, null, 'sent');
-        $args['page'] = $page;
-
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
-     */
-    public function sentMessagesWithPreviewAction($page, Message $message, Request $request){
-        $args = $this->getHomeArgs($request, $message, 'sent');
-        $args['page'] = $page;
-
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     */
-    public function draftMessagesAction($page, Request $request){
-        $args = $this->getHomeArgs($request, null, 'draft');
-        $args['page'] = $page;
-
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
-     */
-    public function draftMessagesWithPreviewAction($page, Message $message, Request $request){
-        $args = $this->getHomeArgs($request, $message, 'draft');
-        $args['page'] = $page;
-
-        return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
-    }
-
-    //MESSAGES
-    private function getHomeArgs(Request $request, Message $message = null, $subSection = null){
+    private function getHomeArgs(Request $request, Message $message = null){
         //on récupère les messages non lus de l'utilisateur
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $messages_retriever = $this->get('mesclics_messages.retriever');
+        
+        //on récupère le filtre
+        //par défaut on affiche tous les messages reçus
+        if($request->query->get('filter')){
+            if($request->query->get('filter') === 'reply'){
+                $subSection = 'new';
+            } else{
+                $subSection = $request->query->get('filter');
+            }
+        } else{
+            $subSection = 'received';
+        }
+
         $args = array(
             'currentSection' => 'messages',
             'subSection' => $subSection
         );
-     
+
+        $page = $request->query->get('page');
+        if($page){
+            $args['page'] = $page;
+        }
+        //on récupère les messages selon le filtre ou la subSection sauf si la sous-section est 'new'
         //TODO: messages groupés par conversation
-        //messages non lus
-        //on définit les order_params pour le messages_retriever
-        $order_params = array(
-            'date-creation' => 'creationDate',
-            'titre' => 'title',
-            'message' => 'content',
-            'auteur' => 'author'
-        );
-        $messages_retriever->addOrderParams($order_params);
+        if($subSection !== 'new'){
+            //on définit les order_params pour le messages_retriever
+            $order_params = array(
+                'date-creation' => 'creationDate',
+                'titre' => 'title',
+                'message' => 'content',
+                'auteur' => 'author'
+            );
+            $messages_retriever->addOrderParams($order_params);
 
-        
-        //on pass les éventuels paramètres de tris de la requête au messages_retriever
-        if($request->query->get('filter')){
-            $messages_retriever->setFilter($request->query->get('filter'));
-        }
-        
-        if($request->query->get('order-by')){
-            $messages_retriever->setOrderBy($request->query->get('order-by'));
-        }
-        if($request->query->get('sort')){
-            $messages_retriever->setOrder($request->query->get('sort'));
-        } else{
-            if(preg_match('/^date-/',$messages_retriever->getOrderBy())){
-                $messages_retriever->setOrder('DESC');
-            } else{
-                $messages_retriever->setOrder('ASC');
+            
+            //on passe les éventuels paramètres de tris de la requête au messages_retriever
+            // FILTER (par défaut on veut les messages reçus)
+            $messages_retriever->setFilter($subSection);
+            
+            if($request->query->get('order-by')){
+                $messages_retriever->setOrderBy($request->query->get('order-by'));
             }
-        }
+            if($request->query->get('sort')){
+                $messages_retriever->setOrder($request->query->get('sort'));
+            } else{
+                if(preg_match('/^date-/',$messages_retriever->getOrderBy())){
+                    $messages_retriever->setOrder('DESC');
+                } else{
+                    $messages_retriever->setOrder('ASC');
+                }
+            }
 
-        $args['sort_params'] = array(
-            'filter' => $messages_retriever->getFilter(),
-            'order_by' => $messages_retriever->getOrderBy(),
-            'sort' => $messages_retriever->getOrder()
-        );
+            $args['sort_params'] = array(
+                'filter' => $messages_retriever->getFilter(),
+                'order_by' => $messages_retriever->getOrderBy(),
+                'sort' => $messages_retriever->getOrder()
+            );
 
-        $args['unreadMessages'] = $messages_retriever->setFilter('unread')->getMessages();
-        $args['receivedMessages'] = $messages_retriever->setFilter('received')->getMessages();
-        $args['sentMessages'] = $messages_retriever->setFilter('sent')->getMessages();
-        $args['draftMessages'] = $messages_retriever->setFilter('draft')->getMessages();
+            $filter = $messages_retriever->getFilter();
 
-        //nouveau message
-        if($message){
-            $args['new'] = $message->getId();
+            $args[$filter .'Messages'] = $messages_retriever->getMessages();
+
+            //preview
+            if($message){
+                $args['message_preview'] = $this->getMessagePreview($message, $args[$subSection.'Messages']);
+            }
         } else{
-            $args['new'] = null;
-        }
-
-        //on récupère l'éventuel message passé en argument
-        if($message && $subSection){
-            $args['message_preview'] = $this->getMessagePreview($message, $args[$subSection.'Messages']);
+            $newMessageForm = $this->newMessageForm($request, $message);
+            $args['newMessageForm'] = $newMessageForm->createView();
         }
         return $args;
     }
+
+    // /**
+    //  * @Security("has_role('ROLE_CLIENT')")
+    //  */
+    // public function newAction(Request $request){
+    //     $args = $this->getHomeArgs($request, null, 'new');
+
+    //     $newMessageForm = $this->newMessageForm($request);
+    //     $args['newMessageForm'] = $newMessageForm->createView();
+
+    //     if($request->isMethod('POST')){
+    //          return $this->redirectToRoute('mesclics_admin_messages_received');
+    //     }
+    //     return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
+    // }
+
+    // /**
+    //  * @Security("has_role('ROLE_CLIENT')")
+    //  * @ParamConverter("to", options={"mapping": {"to": "id"}})
+    //  */
+    // public function newToAction(User $to, Request $request){
+    //     $args = $this->getHomeArgs($request, null, 'new');
+
+    //     $newMessageForm = $this->newMessageForm($request, null, $to);
+    //     $args['newMessageForm'] = $newMessageForm->createView();
+
+    //     if($request->isMethod('POST')){
+    //          return $this->redirectToRoute('mesclics_admin_messages_received');
+    //     }
+    //     return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
+    // }
+
+    /**
+     * @Security("has_role('ROLE_CLIENT')")
+     * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
+     */
+    // public function replyAction(Message $message, Request $request){
+    //     $args = $this->getHomeArgs($request, null);
+
+    //     if($request->isMethod('POST')){
+    //          return $this->redirectToRoute('mesclics_admin_messages_received');
+    //     }
+    //     return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
+    // }
+
+    /**
+     * @Security("has_role('ROLE_CLIENT')")
+     * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
+     */
+    // public function newWithPreviewAction(Message $message, Request $request){
+    //     $args = $this->getHomeArgs($request, null, 'new');
+    //     $args['initialMessage'] = $message;
+
+    //     $newMessageForm = $this->newMessageForm($request, $message);
+    //     $args['newMessageForm'] = $newMessageForm->createView();
+
+    //     if($request->isMethod('POST')){
+    //          return $this->redirectToRoute('mesclics_admin_messages_received');
+    //     }
+    //     return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
+    // }
+
 
     private function getMessagePreview(Message $message, $results){
          if($message){
@@ -262,6 +196,7 @@ class MessagesController extends Controller{
 
     private function newMessageForm(Request $request, Message $msg = null, User $to = null){
         $em = $this->getDoctrine()->getManager();
+
         $message = new Message();
 
         //si un message est passé en paramètre, alors il s'agit d'une réponse ou d'un brouillon à modifier
@@ -316,7 +251,6 @@ class MessagesController extends Controller{
                 }
             }
         }
-
         return $messageForm;
     }
 }

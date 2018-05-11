@@ -2,15 +2,15 @@
 
 {{ form_start(newMessageForm, {'attr': {'class': 'message-form__d__new [ oocss-form oocss-form__d__message ]'}}) }}
 <div class="[ oocss-message--headers ]">
-    {{ form_row(newMessageForm.recipients, {'attr': {'class': '[ oocss-form-select ]'}}) }}
-    {{ form_row(newMessageForm.title, {'attr': {'class': '[ oocss-form-text oocss-form-text__d__titre ]'}}) }}
+    {{ form_row(newMessageForm.recipients, {'attr': {'class': '[ oocss-form-row oocss-form-select ]'}}) }}
+    {{ form_row(newMessageForm.title, {'attr': {'class': '[ oocss-form-row oocss-form-text ] titre'}}) }}
 </div>
 
 <div class="[ oocss-message--content ]">
-    {{ form_row(newMessageForm.content, {'attr': {'class': '[ oocss-form-textarea ]'}}) }}
-    {{ form_row(newMessageForm.draft, {'attr': {'class': '[ oocss-form-checkbox oocss-form-checkbox__d__button ]'}}) }}
+    {{ form_row(newMessageForm.content, {'attr': {'class': '[ oocss-form-row oocss-form-textarea ]'}}) }}
+    {{ form_row(newMessageForm.draft, {'attr': {'class': '[ oocss-form-row oocss-form-checkbox oocss-form-checkbox__d__button ]'}}) }}
 </div>
 
-{{ form_row(newMessageForm.submit, {'attr': {'class': '[ oocss-form-submit oocss-message-submit ]'}}) }}
+{{ form_row(newMessageForm.submit, {'attr': {'class': '[ oocss-form-row oocss-form-submit oocss-message-submit ]'}}) }}
 {{ form_row(newMessageForm._token) }}
 {{ form_end(newMessageForm, {'render_rest': false})}}

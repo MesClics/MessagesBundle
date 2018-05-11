@@ -1,22 +1,80 @@
+{% if sort_params.sort is not defined or sort_params.sort is same as ('ASC') %}
+    {% set sort_param_inv = 'DESC' %}
+{% else %}
+    {% set sort_param_inv = 'ASC' %}
+{% endif %}
+
+
 <h2 class="[ oocss-title-section ]">Messages non lus</h2>
 <table class="[ oocss-table ]">
     <thead>
         <tr class="[ oocss-table-head-row ]">
-            <th>Reçu le</th>
+            <th>
+                {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}
+                    {% set sort_param = sort_param_inv %}
+                {% else %}
+                    {% set sort_param = 'ASC' %}
+                {% endif %}
+                <a href="{{ path('mesclics_admin_messages', {'filter': 'unread', 'order-by': 'date-creation', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}oocss-active{% endif %}] sort-{{ sort_params.sort|default('asc') }}">reçu le</a>
+            </th>
             <th>À</th>
-            <th>De</th>
-            <th>Sujet</th>
+            <th>
+                {% if sort_params.order_by is defined and sort_params.order_by is same as ('auteur') %}
+                    {% set sort_param = sort_param_inv %}
+                {% else %}
+                    {% set sort_param = 'ASC' %}
+                {% endif %}
+                <a href="{{ path('mesclics_admin_messages', {'filter': 'unread', 'order-by': 'auteur', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('auteur') %}oocss-active
+                {% endif %}] sort-{{ sort_params.sort|default('asc') }}">de</a>
+            </th>
+            <th>
+                {% if sort_params.order_by is defined and sort_params.order_by is same as ('titre') %}
+                    {% set sort_param = sort_param_inv %}
+                {% else %}
+                    {% set sort_param = 'ASC' %}
+                {% endif %}
+                <a href="{{ path('mesclics_admin_messages', {'filter': 'unread', 'order-by': 'titre', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('titre') %}oocss-active
+                {% endif %}] sort-{{ sort_params.sort|default('asc') }}">objet</a>
+            </th>
         </tr>
     </thead>
 
-    {% for message in unread %}
-    <tr class="[ oocss-table-row oocss-table-row__d__messages oocss-table-row__d__messages__s__unread ]">
-        <td class="[ oocss-table-data ]">{{ message.creationDate | date('d/m/Y') }}</td>
-        <td class="[ oocss-table-data ]">{{ message.creationDate | date('H:i') }}</td>
-        <td class="[ oocss-table-data ]">{{ message.author }}</td>
-        <td class="[ oocss-table-data ]">
-            <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_unread_preview', { 'message_id': message.id }) }}">{{ message.title }}</a>
-        </td>
-    </tr>
-    {% endfor %}
+    {% if unreadMessages|length >= 1 %}
+        
+        {% if page is not defined %}
+            {% set page = 1 %}
+        {% endif %}
+
+        {% set currItems = paginate(unreadMessages).page(page) %}
+
+        {% for message in currItems %}
+        <tr class="[ oocss-table-row oocss-table-row__d__messages oocss-table-row__d__messages__s__unread ]">
+            <td class="[ oocss-table-data ]">
+                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'unread', 'message_id': message.id }) }}">{{ message.creationDate | date('d/m/Y') }}</a>
+            </td>
+            <td class="[ oocss-table-data ]">
+                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'unread', 'message_id': message.id }) }}">{{ message.creationDate | date('H:i') }}</a>
+            </td>
+            <td class="[ oocss-table-data ]">
+                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'unread', 'message_id': message.id }) }}">{{ message.author }}</a>
+            </td>
+            <td class="[ oocss-table-data ]">
+                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'unread', 'message_id': message.id }) }}">{{ message.title }}</a>
+            </td>
+        </tr>
+        {% endfor %}
+    {% endif %}
 </table>
+
+{% if page > 1 %}
+    <div class="page-nav">
+        {% for i in 1..currItems|pages  %}
+            <a 
+            class="
+            page-button 
+            {% if loop|first or loop|last %}first-last {% endif %} {% if i == page %}current-page {% endif %}
+            " 
+            href="{{ path('mesclics_admin_messages_received', {'page': i}) }}">{{ i }}</a>{% if not loop|last %} | {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
