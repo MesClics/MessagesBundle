@@ -1,47 +1,61 @@
-{% if page is not defined %}
-    {% set page = 1 %}
+{% if sort_params.sort is not defined or sort_params.sort is same as ('ASC') %}
+    {% set sort_param_inv = 'DESC' %}
+{% else %}
+    {% set sort_param_inv = 'ASC' %}
 {% endif %}
-{% set sent = paginate(sent).page(page) %}
 
 <h2 class="[ oocss-title-section ]">Derniers messages envoyés</h2>
 <table class="[ oocss-table ]">
     <thead>
         <tr class="[ oocss-table-head-row ]">
-            <th>Envoyé le</th>
+            <th>
+                <a href="" class="">Envoyé le</a>
+            </th>
             <th>À</th>
             <th>Destinataires</th>
-            <th>Sujet</th>
+            <th>
+                <a href="" class="">Objet</a>
+            </th>
         </tr>
+    </thead>
+    {% if sentMessages|length >= 1 %}
+        {% if page is not defined %}
+            {% set page = 1 %}
+        {% endif %}
 
-        {% for msg in sent %}
+        {% set currItems = paginate(sent).page(page) %}
+        {% for msg in currItems %}
             <tr class="[ oocss-table-row oocss-table-row__d__messages ]">
                 <td class="[ oocss-table-data ]">
-                    {{ msg.creationDate | date('d/m/Y') }}
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_sent_preview', { 'message_id': msg.id }) }}">{{ msg.creationDate | date('d/m/Y') }}</a>
                 </td>
                 <td class="[ oocss-table-data ]">
-                    {{ msg.creationDate | date('H:i') }}
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_sent_preview', { 'message_id': msg.id }) }}">{{ msg.creationDate | date('H:i') }}</a>
                 </td>
                 <td class="[ oocss-table-data ]">
-                    {% for recipient in msg.recipients %}
-                        {{ recipient.username }}{% if not loop.last %}, {% endif %}
-                    {% endfor %}
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_sent_preview', { 'message_id': msg.id }) }}">
+                        {% for recipient in msg.recipients %} {{ recipient.username }}{% if not loop.last %}, {% endif %} {% endfor %}
+                    </a>
                 </td>
                 <td class="[ oocss-table-data ]">
-                    <a  class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_sent_preview', { 'message_id': msg.id }) }}">{{ msg.title }}</a>
+                    <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_sent_preview', { 'message_id': msg.id }) }}">{{ msg.title }}</a>
                 </td>
             </tr>
         {% endfor %}
-    </thead>
+    {% endif %}
+
 </table>
 
-<div class="page-nav">
-    Page
-    {% for i in 1..sent|pages  %}
-        <a 
-        class="
-        page-button 
-        {% if loop|first or loop|last %}first-last {% endif %} {% if i == page %}current-page {% endif %}
-        " 
-        href="{{ path('mesclics_admin_messages_sent', {'page': i}) }}">{{ i }}</a>{% if not loop|last %} | {% endif %}
-    {% endfor %}
-</div>
+{% if page > 1 %}
+    <div class="page-nav">
+        Page
+        {% for i in 1..currItems|pages  %}
+            <a 
+            class="
+            page-button 
+            {% if loop|first or loop|last %}first-last {% endif %} {% if i == page %}current-page {% endif %}
+            " 
+            href="{{ path('mesclics_admin_messages_sent', {'page': i}) }}">{{ i }}</a>{% if not loop|last %} | {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
