@@ -9,12 +9,24 @@
     <thead>
         <tr class="[ oocss-table-head-row ]">
             <th>
-                <a href="" class="">Envoyé le</a>
+                {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}
+                    {% set sort_param = sort_param_inv %}
+                {% else %}
+                    {% set sort_param = 'ASC' %}
+                {% endif %}
+                <a href="{{ path('mesclics_admin_messages_sent', {'filter': 'sent', 'order-by': 'date-creation', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}oocss-active
+                {% endif %}] sort-{{ sort_params.sort|default('asc') }}">Envoyé le</a>
             </th>
             <th>À</th>
             <th>Destinataires</th>
             <th>
-                <a href="" class="">Objet</a>
+                {% if sort_params.order_by is defined and sort_params.order_by is same as ('titre') %}
+                    {% set sort_param = sort_param_inv %}
+                {% else %}
+                    {% set sort_param = 'ASC' %}
+                {% endif %}
+                <a href="{{ path('mesclics_admin_messages_sent', {'filter': 'sent', 'order-by': 'titre', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('titre') %}oocss-active
+                {% endif %}] sort-{{ sort_params.sort|default('asc') }}">Objet</a>
             </th>
         </tr>
     </thead>
@@ -23,7 +35,7 @@
             {% set page = 1 %}
         {% endif %}
 
-        {% set currItems = paginate(sent).page(page) %}
+        {% set currItems = paginate(sentMessages).page(page) %}
         {% for msg in currItems %}
             <tr class="[ oocss-table-row oocss-table-row__d__messages ]">
                 <td class="[ oocss-table-data ]">
