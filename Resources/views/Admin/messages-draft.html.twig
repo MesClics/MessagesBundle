@@ -14,7 +14,7 @@
                     {% else %}
                         {% set sort_param = 'ASC' %}
                     {% endif %}
-                    <a href="{{ path('mesclics_admin_messages_received', {'filter': 'draft', 'order-by': 'date-creation', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}oocss-active
+                    <a href="{{ path('mesclics_admin_messages_draft', {'filter': 'draft', 'order-by': 'date-creation', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('date-creation') %}oocss-active
                     {% endif %}] sort-{{ sort_params.sort|default('asc') }}">le</a>
                 </th>
                 <th>
@@ -29,7 +29,7 @@
                     {% else %}
                         {% set sort_param = 'ASC' %}
                     {% endif %}
-                    <a href="{{ path('mesclics_admin_messages_received', {'filter': 'draft', 'order-by': 'titre', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('titre') %}oocss-active
+                    <a href="{{ path('mesclics_admin_messages_draft', {'filter': 'draft', 'order-by': 'titre', 'sort': sort_param}) }}" class="[ oocss-table-col-sort {% if sort_params.order_by is not defined or sort_params.order_by is same as ('titre') %}oocss-active
                     {% endif %}] sort-{{ sort_params.sort|default('asc') }}">objet</a>
                 </th>
                 <th>
