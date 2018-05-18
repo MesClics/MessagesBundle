@@ -73,7 +73,7 @@
     {% endfor %}
 </table>
 
-{% if page > 1 %}
+{% if page is defined and page > 1 %}
     <div class="page-nav">
         {% for i in 1..currItems|pages %}
             <a href="{{ path('mesclics_admin_messages_draft', {'page': i}) }}" class="[ oocss-button ] page">{{ i }}</a>{% if not loop|last %} | {% endif %}

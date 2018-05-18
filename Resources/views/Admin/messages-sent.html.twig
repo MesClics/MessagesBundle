@@ -58,7 +58,7 @@
 
 </table>
 
-{% if page > 1 %}
+ {% if page is defined and page > 1 %}
     <div class="page-nav">
         Page
         {% for i in 1..currItems|pages  %}
