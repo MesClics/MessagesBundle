@@ -2,7 +2,7 @@
     "name": "mesclics/messages-bundle",
     "description": "Bundle pour l'ajout d'une messagerie à la console d'administration mesclics",
     "license": "proprietary",
-    "type": "project",
+    "type": "symfony-bundle",
     "version": "0.0.1",
     "homepage": "https://github.com/MesClics/MessagesBundle.git",
     "authors": [
