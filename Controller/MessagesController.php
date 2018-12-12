@@ -19,14 +19,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class MessagesController extends Controller{
     /**
      * @Security("has_role('ROLE_CLIENT')")
+     * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
      */
-    public function homeAction(Request $request){
-        if($request->query->get('message_id')){
-            $repo = $this->getDoctrine()->getManager()->getRepository('MesClicsMessagesBundle:Message');
-            $message = $repo->find($request->query->get('message_id'));
-        } else{
-            $message = null;
-        }
+    public function homeAction(Request $request, Message $message = null){
+        // if($request->query->get('message_id')){
+        //     $repo = $this->getDoctrine()->getManager()->getRepository('MesClicsMessagesBundle:Message');
+        //     $message = $repo->find($request->query->get('message_id'));
+        // } else{
+        //     $message = null;
+        // }
         
         $args = $this->getHomeArgs($request, $message);
         // var_dump($args[$args['subSection'].'Messages']);die();
@@ -63,7 +64,7 @@ class MessagesController extends Controller{
         if($page){
             $args['page'] = $page;
         }
-        //on récupère les messages selon le filtre ou la subSection sauf si la sous-section est 'new'
+        //on récupère les messages selon le filtre ou la subSection sauf si la sous-section est 'new' ou 'draft'
         //TODO: messages groupés par conversation
         if($subSection !== 'new'){
             //on définit les order_params pour le messages_retriever
@@ -145,10 +146,10 @@ class MessagesController extends Controller{
     //     return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     // }
 
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
-     */
+    // /**
+    //  * @Security("has_role('ROLE_CLIENT')")
+    //  * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
+    //  */
     // public function replyAction(Message $message, Request $request){
     //     $args = $this->getHomeArgs($request, null);
 
@@ -158,10 +159,10 @@ class MessagesController extends Controller{
     //     return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     // }
 
-    /**
-     * @Security("has_role('ROLE_CLIENT')")
-     * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
-     */
+    // /**
+    //  * @Security("has_role('ROLE_CLIENT')")
+    //  * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
+    //  */
     // public function newWithPreviewAction(Message $message, Request $request){
     //     $args = $this->getHomeArgs($request, null, 'new');
     //     $args['initialMessage'] = $message;

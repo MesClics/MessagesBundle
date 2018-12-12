@@ -37,7 +37,7 @@
 
         {% set currItems = paginate(sentMessages).page(page) %}
         {% for msg in currItems %}
-            <tr class="[ oocss-table-row oocss-table-row__d__messages ]">
+            <tr class="[ oocss-table-row oocss-table-row messages ]">
                 <td class="[ oocss-table-data ]">
                     <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'sent', 'message_id': msg.id }) }}">{{ msg.creationDate | date('d/m/Y') }}</a>
                 </td>

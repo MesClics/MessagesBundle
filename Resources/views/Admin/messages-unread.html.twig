@@ -48,7 +48,7 @@
         {% set currItems = paginate(unreadMessages).page(page) %}
 
         {% for message in currItems %}
-        <tr class="[ oocss-table-row oocss-table-row__d__messages oocss-table-row__d__messages__s__unread ]">
+        <tr class="[ oocss-table-row oocss-table-row messages oocss-table-row messages__s__unread ]">
             <td class="[ oocss-table-data ]">
                 <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'unread', 'message_id': message.id }) }}">{{ message.creationDate | date('d/m/Y') }}</a>
             </td>

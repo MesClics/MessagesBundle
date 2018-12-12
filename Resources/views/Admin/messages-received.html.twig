@@ -47,7 +47,7 @@
         {% set currItems = paginate(receivedMessages).page(page) %}
 
         {% for msg in currItems %}
-            <tr class="[ oocss-table-row oocss-table-row__d__messages {% if msg.hasBeenRead(app.user) == false %}oocss-table-row__d__messages__s__unread {% endif %}]">
+            <tr class="[ oocss-table-row oocss-table-row messages {% if msg.hasBeenRead(app.user) == false %}oocss-table-row messages__s__unread {% endif %}]">
                 <td class="[ oocss-table-data ]">
                     <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'message_id': msg.id }) }}">{{ msg.creationDate | date('d/m/Y') }}</a>
                 </td>

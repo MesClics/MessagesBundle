@@ -8,22 +8,22 @@ mesclics_admin_messages_preview:
     defaults:
         _controller: MesClicsMessagesBundle:Messages:home
 
-mesclics_admin_messages_new:
-    path: /new/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:new
+# mesclics_admin_messages_new:
+#     path: /new/
+#     defaults:
+#         _controller: MesClicsMessagesBundle:Messages:new
 
-mesclics_admin_messages_new_preview:
-    path: /new/{message_id}/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:newWithPreview
+# mesclics_admin_messages_new_preview:
+#     path: /new/{message_id}/
+#     defaults:
+#         _controller: MesClicsMessagesBundle:Messages:newWithPreview
 
-mesclics_admin_messages_new_to:
-    path: /new/{to}/
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:newTo
+# mesclics_admin_messages_new_to:
+#     path: /new/{to}/
+#     defaults:
+#         _controller: MesClicsMessagesBundle:Messages:newTo
 
-mesclics_admin_messages_reply:
-    path: /{message_id}/reply
-    defaults:
-        _controller: MesClicsMessagesBundle:Messages:reply
+# mesclics_admin_messages_reply:
+#     path: /{message_id}/reply
+#     defaults:
+#         _controller: MesClicsMessagesBundle:Messages:reply

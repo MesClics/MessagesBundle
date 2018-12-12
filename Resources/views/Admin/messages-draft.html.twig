@@ -46,28 +46,28 @@
     {% endif %}
 
     {% for msg in currItems %}
-        <tr class="[ oocss-table-row oocss-table-row__d__messages ]">
+        <tr class="[ oocss-table-row oocss-table-row messages ]">
             <td class="[ oocss-table-data ]">
-                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'draft', 'message_id': msg.id })}}">{{ msg.creationDate|date('d/m/Y') }}</a>
+                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_preview', { 'filter': 'new', 'message_id': msg.id })}}">{{ msg.creationDate|date('d/m/Y') }}</a>
             </td>
             <td class="[ oocss-table-data ]">
-                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'draft', 'message_id': msg.id })}}">{{ msg.creationDate|date('H:i') }}</a>
+                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_preview', { 'filter': 'new', 'message_id': msg.id })}}">{{ msg.creationDate|date('H:i') }}</a>
             </td>
             <td class="[ oocss-table-data ]">
-                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages', { 'filter': 'draft', 'message_id': msg.id })}}">
+                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_preview', { 'filter': 'new', 'message_id': msg.id })}}">
                     {% for recipient in msg.recipients %}
                         {{ recipient.username }}{% if not loop.last %}, {% endif %}
                     {% endfor %}
                 </a>
             </td>
             <td class="[ oocss-table-data ]">
-                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_preview', { 'filter': 'draft', 'message_id': msg.id })}}">{{ msg.title }}</a>
+                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_preview', { 'filter': 'new', 'message_id': msg.id })}}">{{ msg.title }}</a>
             </td>
             <td class="[ oocss-table-data ]">
-                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_preview', { 'filter': 'draft', 'message_id': msg.id })}}">{{ msg.content|slice(0, 30) }}</a>
+                <a class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_preview', { 'filter': 'new', 'message_id': msg.id })}}">{{ msg.content|slice(0, 30) }}</a>
             </td>
             <td class="[ oocss-table-data ]">
-                <a  class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_new_preview', { 'message_id': msg.id }) }}">Modifier</a>
+                <a  class="[ oocss-table-link ]" href="{{ path('mesclics_admin_messages_preview', { 'message_id': msg.id, 'filter': 'new' }) }}">Modifier</a>
             </td>
         </tr>
     {% endfor %}
