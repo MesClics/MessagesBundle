@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use MesClics\UtilsBundle\PrevCurrNext\MesClicsPrevCurrNext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use MesClics\MessagesBundle\MessagesRetriever\MessagesRetriever;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -22,7 +23,7 @@ class MessagesController extends Controller{
      * @Security("has_role('ROLE_CLIENT')")
      * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
      */
-    public function homeAction(Request $request, Message $message = null){
+    public function homeAction(Request $request, Message $message = null, MesClicsPrevCurrNext $prevCurrNext, MessagesRetriever $messages_retriever){
         // if($request->query->get('message_id')){
         //     $repo = $this->getDoctrine()->getManager()->getRepository('MesClicsMessagesBundle:Message');
         //     $message = $repo->find($request->query->get('message_id'));
@@ -30,7 +31,7 @@ class MessagesController extends Controller{
         //     $message = null;
         // }
         
-        $args = $this->getHomeArgs($request, $message);
+        $args = $this->getHomeArgs($request, $message, $prevCurrNext, $messages_retriever);
         // var_dump($args[$args['subSection'].'Messages']);die();
         if($request->isMethod('POST')){
             return $this->redirectToRoute('mesclics_admin_messages');
@@ -39,10 +40,9 @@ class MessagesController extends Controller{
         return $this->render('MesClicsAdminBundle:Panel:messages.html.twig', $args);
     }
 
-    private function getHomeArgs(Request $request, Message $message = null){
+    private function getHomeArgs(Request $request, Message $message = null, MesClicsPrevCurrNext $prevCurrNext, MessagesRetriever $messages_retriever){
         //on récupère les messages non lus de l'utilisateur
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $messages_retriever = $this->get('mesclics_messages.retriever');
         
         //on récupère le filtre
         //par défaut on affiche tous les messages reçus
@@ -107,7 +107,7 @@ class MessagesController extends Controller{
 
             //preview
             if($message){
-                $args['message_preview'] = $this->getMessagePreview($message, $args[$subSection.'Messages']);
+                $args['message_preview'] = $this->getMessagePreview($message, $args[$subSection.'Messages'], $prevCurrNext);
             }
         } else{
             $newMessageForm = $this->newMessageForm($request, $message);

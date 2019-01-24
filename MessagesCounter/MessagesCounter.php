@@ -1,18 +1,18 @@
 <?php
 namespace MesClics\MessagesBundle\MessagesCounter;
 
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException; 
 
 class MessagesCounter{
     private $em;
-    private $token_storage;
+    private $security;
     private $counter_names;
 
-    public function __construct(EntityManager $em, TokenStorage $token_storage){
+    public function __construct(EntityManager $em, Security $security){
         $this->em = $em;
-        $this->token_storage = $token_storage;
+        $this->security = $security;
         $this->counter_names = array(
             'unread',
             'draft',
@@ -31,7 +31,7 @@ class MessagesCounter{
 
         $messages_repo = $this->em->getRepository('MesClicsMessagesBundle:Message');
         $method_name = 'count'.ucfirst($counter_name).'Messages';
-        $result = $messages_repo->$method_name($this->token_storage->getToken()->getUser());
+        $result = $messages_repo->$method_name($this->security->getUser());
 
         return $result;
     }

@@ -1,20 +1,20 @@
 <?php
 namespace MesClics\MessagesBundle\MessageReader;
 
-use MesClics\MessagesBundle\Entity\Message;
-use MesClics\UserBundle\Entity\User;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Doctrine\ORM\EntityManager;
+use MesClics\UserBundle\Entity\User;
+use MesClics\MessagesBundle\Entity\Message;
+use Symfony\Component\Security\Core\Security;
 
 class MessageReader{
     private $em;
-    private $token_storage;
+    private $security;
     private $reader;
 
-    public function __construct(EntityManager $em, TokenStorage $token_storage){
+    public function __construct(EntityManager $em, Security $security){
         $this->em = $em;
-        $this->token_storage = $token_storage;
-        $this->reader = $this->token_storage->getToken()->getUser();
+        $this->security = $security;
+        $this->reader = $this->security->getUser();
     }
 
     public function setAsRead(Message $message){
