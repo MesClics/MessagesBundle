@@ -1,20 +1,21 @@
 <?php
 namespace MesClics\MessagesBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use MesClics\UserBundle\Entity\User;
 use MesClics\MessagesBundle\Entity\Message;
+use MesClics\AdminBundle\Entity\Notification;
 use MesClics\MessagesBundle\Form\MessageType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use MesClics\AdminBundle\Entity\Notification;
+use Symfony\Component\HttpFoundation\Response;
 use MesClics\MessagesBundle\Events\MessagesEvents;
 use MesClics\MessagesBundle\Events\MessagePostEvent;
 use MesClics\MessagesBundle\Events\MessageReadEvent;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use MesClics\UtilsBundle\PrevCurrNext\MesClicsPrevCurrNext;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class MessagesController extends Controller{
     /**
@@ -177,9 +178,8 @@ class MessagesController extends Controller{
     // }
 
 
-    private function getMessagePreview(Message $message, $results){
+    private function getMessagePreview(Message $message, array $results, MesClicsPrevCurrNext $prevCurrNext){
          if($message){
-            $prevCurrNext = $this->get('mesclics_utils.prevcurrnext');
             $prevCurrNext->handle($message, $results, true);
             $message_preview = $prevCurrNext;
             
