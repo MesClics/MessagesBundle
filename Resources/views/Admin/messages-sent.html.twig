@@ -35,7 +35,7 @@
             {% set page = 1 %}
         {% endif %}
 
-        {% set currItems = paginate(sentMessages).page(page) %}
+        {% set currItems = paginate(sentMessages, 15).page(page) %}
         {% for msg in currItems %}
             <tr class="[ oocss-table-row oocss-table-row messages ]">
                 <td class="[ oocss-table-data ]">

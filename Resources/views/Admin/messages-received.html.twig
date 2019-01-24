@@ -44,7 +44,7 @@
             {% set page = 1 %}
         {% endif %}
 
-        {% set currItems = paginate(receivedMessages).page(page) %}
+        {% set currItems = paginate(receivedMessages, 15).page(page) %}
 
         {% for msg in currItems %}
             <tr class="[ oocss-table-row oocss-table-row messages {% if msg.hasBeenRead(app.user) == false %}oocss-table-row messages__s__unread {% endif %}]">

@@ -42,7 +42,7 @@
             {% set page = 1 %}
         {% endif %}
     
-        {% set currItems = paginate(draftMessages).page(page) %}
+        {% set currItems = paginate(draftMessages, 15).page(page) %}
     {% endif %}
 
     {% for msg in currItems %}
