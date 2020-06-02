@@ -1,0 +1,10 @@
+
+{% extends "MesClicsAdminBundle::widget-layout.html.twig" %}
+
+{% block widgetContent %}
+    {% if widget.messages|length > 1 %}
+        <h2 class="oocss-title-section">{{ widget.messages|length }} nouveaux messages</h2>
+    {% else %}
+        <h2 class="oocss-title-section">{{ widget.messages|length }} nouveau message</h2>
+    {% endif %}
+{% endblock widgetContent %}

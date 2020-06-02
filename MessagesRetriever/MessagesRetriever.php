@@ -1,27 +1,28 @@
 <?php
 namespace MesClics\MessagesBundle\MessagesRetriever;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Doctrine\ORM\EntityManager;
 
 class MessagesRetriever{
     private $em;
-    private $token_storage;
     private $repository;
     private $order_params;
     private $order_by;
     private $order;
     private $filter;
     private $limit;
+    private $security;
 
-    public function __construct(EntityManager $em, TokenStorage $token_storage){
+    public function __construct(EntityManagerInterface $em, Security $security){
         $this->em = $em;
-        $this->token_storage = $token_storage;
+        $this->security = $security;
         $this->repository = $this->em->getRepository('MesClicsMessagesBundle:Message');
         $this->limit = false; //par défaut on retourne un nb infini de résutlats.
-        $this->order_by = 'date-creation'; //par défaut on trie les posts par date de création.
-        if(preg_match('/^date-/m', $this->order_by)){//par défaut le critère de tri @order est ascendant sauf lorsque le critère de tri commence par date_
+        $this->order_by = 'creationDate'; //par défaut on trie les messaages par date de création.
+        if(preg_match('/Date/m', $this->order_by)){//par défaut le critère de tri @order est ascendant sauf lorsque le critère de tri contient Date
             $this->order = 'DESC';
         } else{
             $this->order = 'ASC';
@@ -82,6 +83,6 @@ class MessagesRetriever{
         $filter_camel = implode('', $filter_camel);
         $method_name = 'get' . $filter_camel . 'Messages';
         // var_dump($method_name);
-        return $this->repository->$method_name($this->token_storage->getToken()->getUser(), $this->order_params[$this->order_by], $this->order, $this->limit);
+        return $this->repository->$method_name($this->security->getUser(), $this->order_params[$this->order_by], $this->order, $this->limit);
     }
 }

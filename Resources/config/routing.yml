@@ -1,7 +1,7 @@
 mesclics_admin_messages:
     path: /
     defaults: 
-        _controller: MesClicsMessagesBundle:Messages:home
+        _controller: MesClicsMessagesBundle:Messages:messages
 
 mesclics_admin_messages_preview:
     path: /{message_id}/

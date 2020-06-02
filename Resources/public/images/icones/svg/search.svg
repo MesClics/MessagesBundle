@@ -1,0 +1,17 @@
+<svg width="64.73mm" height="64.73mm" version="1.1" viewBox="0 0 64.73 64.73" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(959.92 535.16)">
+  <g transform="translate(-1293.3 -324.53)" style="stroke:#000">
+   <g transform="translate(212.88 -711.8)" style="stroke:#000">
+    <g style="stroke:#000">
+     <g transform="translate(0 64.995)" style="stroke:#000">
+      <rect x="120.47" y="436.18" width="64.73" height="64.73" style="fill:none;paint-order:stroke fill markers;stroke:none"/>
+      <g transform="matrix(1 0 0 1.1934 195.71 489.52)" style="stroke-width:.91537;stroke:#000"></g>
+     </g>
+     <g style="stroke:#000">
+      <path transform="matrix(.26458 0 0 .26458 120.47 501.17)" d="m46.721 70.857v102.94h102.53v-10.887h-93.346v-78.07l66.424 46.256 38.146-26.566 28.273-19.687v40.252h9.1875v-54.234zm26.631 13.447h97.945l-24.486 17.053-24.486 17.051zm113.33 44.34c-8.5078 0-16.276 3.4615-21.865 9.0508-5.5892 5.5892-9.0586 13.357-9.0586 21.865s3.4694 16.268 9.0586 21.857c5.5892 5.5892 13.357 9.0586 21.865 9.0586 6.6805 0 12.564-2.585 17.635-6.209l21.074 21.076 7.0723-7.0723-21.082-21.076c3.6248-5.071 6.2148-10.953 6.2148-17.635 0-8.5078-3.4674-16.276-9.0566-21.865-5.5892-5.5892-13.35-9.0508-21.857-9.0508zm0 9.9961c5.8057 0 10.994 2.3361 14.785 6.127 3.7909 3.7908 6.127 8.9874 6.127 14.793s-2.3361 11.002-6.127 14.793c-3.7909 3.7909-8.9795 6.127-14.785 6.127s-11.004-2.3361-14.795-6.127c-3.7908-3.7908-6.127-8.9874-6.127-14.793s2.3361-11.002 6.127-14.793c3.7908-3.7909 8.9893-6.127 14.795-6.127z" style="color-rendering:auto;color:#000000;dominant-baseline:auto;fill-rule:evenodd;fill:#f5f5f5;font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;image-rendering:auto;isolation:auto;mix-blend-mode:normal;paint-order:stroke fill markers;shape-padding:0;shape-rendering:auto;solid-color:#000000;stroke:none;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

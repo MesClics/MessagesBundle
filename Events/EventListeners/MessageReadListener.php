@@ -12,7 +12,7 @@ class MessageReadListener{
         $this->message_reader = $message_reader;
     }
 
-    public function process(MessageReadEvent $event){
+    public function proceed(MessageReadEvent $event){
         $this->message_reader->setAsRead($event->getMessage());
     }
 }

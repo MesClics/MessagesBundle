@@ -8,6 +8,7 @@ use MesClics\MessagesBundle\Form\MessageType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use MesClics\MessagesBundle\Events\MessagesEvents;
+use MesClics\MessagesBundle\Widget\MessagesWidgets;
 use MesClics\MessagesBundle\Events\MessagePostEvent;
 use MesClics\MessagesBundle\Events\MessageReadEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,8 +20,28 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class MessagesController extends Controller{
+
     /**
-     * @Security("has_role('ROLE_CLIENT')")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function messagesAction(MessagesWidgets $widgets, Request $request){
+        $params = array(
+            'user' => $this->getUser()
+        );
+        $widgets->initialize($params);
+        $res = $widgets->handleRequest($request);
+
+        $args = array(
+            'navRails' => array(
+                'messages' => $this->generateUrl('mesclics_admin_messages')
+            ),
+            'widgets' => $widgets->getWidgets()
+        );
+
+        return $this->render('MesClicsAdminBundle::layout.html.twig', $args);
+    }
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
      * @ParamConverter("message", options={"mapping": {"message_id": "id"}})
      */
     public function homeAction(Request $request, Message $message = null, MesClicsPrevCurrNext $prevCurrNext, MessagesRetriever $messages_retriever){
@@ -117,7 +138,7 @@ class MessagesController extends Controller{
     }
 
     // /**
-    //  * @Security("has_role('ROLE_CLIENT')")
+    //  * @Security("has_role('ROLE_ADMIN')")
     //  */
     // public function newAction(Request $request){
     //     $args = $this->getHomeArgs($request, null, 'new');

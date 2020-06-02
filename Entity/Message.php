@@ -3,7 +3,7 @@
 namespace MesClics\MessagesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use MesClics\UserBundle\Entity\User;
+use MesClicsBundle\Entity\MesClicsUser;
 
 /**
  * Message
@@ -38,18 +38,18 @@ class Message
     private $content;
     
     /**
-     * @ORM\ManyToMany(targetEntity="\MesClics\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="\MesClicsBundle\Entity\MesClicsUser", cascade={"persist"})
      * @ORM\JoinTable(name="mesclics_readmessage_user")
      */
     private $readers;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\MesClics\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\MesClicsBundle\Entity\MesClicsUser", cascade={"persist"})
      */
     private $author;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\MesClics\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="\MesClicsBundle\Entity\MesClicsUser", cascade={"persist"})
      * @ORM\JoinTable(name="mesclics_receivedmessage_user")
      */
     private $recipients;
@@ -188,7 +188,7 @@ class Message
     /**
      * Set author
      *
-     * @param \MesClics\UserBundle\Entity\User $author
+     * @param \MesClicsBundle\Entity\User $author
      *
      * @return Message
      */
@@ -201,7 +201,7 @@ class Message
     /**
      * Get author
      *
-     * @return \MesClics\UserBundle\Entity\User
+     * @return \MesClicsBundle\Entity\User
      */
     public function getAuthor()
     {
@@ -211,7 +211,7 @@ class Message
     /**
      * Add recipient
      *
-     * @param \MesClics\UserBundle\Entity\User $recipient
+     * @param \MesClicsBundle\Entity\User $recipient
      *
      * @return Message
      */
@@ -225,7 +225,7 @@ class Message
     /**
      * Remove recipient
      *
-     * @param \MesClics\UserBundle\Entity\User $recipient
+     * @param \MesClicsBundle\Entity\User $recipient
      */
     public function removeRecipient(User $recipient)
     {
@@ -255,11 +255,11 @@ class Message
     /**
      * Add reader
      *
-     * @param \MesClics\UserBundle\Entity\User $reader
+     * @param \MesClicsBundle\Entity\MesClicsUser $reader
      *
      * @return Message
      */
-    public function addReader(\MesClics\UserBundle\Entity\User $reader)
+    public function addReader(\MesClicsBundle\Entity\MesClicsUser $reader)
     {
         $this->readers[] = $reader;
 
@@ -269,9 +269,9 @@ class Message
     /**
      * Remove reader
      *
-     * @param \MesClics\UserBundle\Entity\User $reader
+     * @param \MesClicsBundle\Entity\MesClicsUser $reader
      */
-    public function removeReader(\MesClics\UserBundle\Entity\User $reader)
+    public function removeReader(\MesClicsBundle\Entity\MesClicsUser $reader)
     {
         $this->readers->removeElement($reader);
     }
@@ -310,7 +310,7 @@ class Message
         return $this->parent;
     }
 
-    public function hasBeenRead(User $user){
+    public function hasBeenRead(MesClicsUser $user){
         return $this->getReaders()->contains($user);
     }
 }

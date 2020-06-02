@@ -1,0 +1,24 @@
+<svg width="64.73mm" height="64.73mm" version="1.1" viewBox="0 0 64.73 64.73" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(67.139 -166.36)">
+  <g transform="translate(-945.22 379.99)">
+   <g transform="translate(610.1 -2.6192)">
+    <g transform="translate(148.58 -379.61)" style="stroke:#000">
+     <rect x="119.4" y="168.6" width="64.73" height="64.73" style="fill:none;paint-order:stroke fill markers;stroke:none"/>
+     <g transform="matrix(1.1436 0 0 1.1426 -30.245 -32.249)" style="stroke-width:.87484;stroke:#000">
+      <g style="stroke-width:.87484;stroke:#000">
+       <g transform="matrix(1.0481 0 0 1.045 246.42 2.8713)" style="stroke-width:.83593;stroke:#000"></g>
+      </g>
+     </g>
+     <g transform="matrix(1 0 0 1.1934 194.64 221.95)" style="stroke-width:.91537;stroke:#000">
+      <g transform="matrix(.86133 0 0 .83981 -2.2898 -.94039)" style="stroke-width:1.0763">
+       <g transform="translate(-3.9769 -2.0766)">
+        <path transform="matrix(.30718 0 0 .26399 -80.717 -50.025)" d="m47.648 72.385v99.881h101.34v-10.787h-92.066v-75.219c21.802 14.898 43.603 29.797 65.404 44.695 21.8-14.899 43.601-29.798 65.402-44.695v38.869h9.2695v-52.744h-149.35zm26.68 13.213h95.992c-16 10.93-31.998 21.862-47.996 32.795-15.998-10.933-31.997-21.864-47.996-32.795zm133.3 38.775c-4.2588 0.68427-6.4721 5.0457-9.6348 7.6211-6.171 6.173-12.343 12.347-18.514 18.52-8.459-8.3791-16.765-16.925-25.32-25.199-7.3155-4.0158-10.27 6.9162-4.0039 10.01 7.4176 7.4181 14.834 14.836 22.252 22.254-8.4192 8.5058-17.024 16.842-25.326 25.455-3.843 5.7321 5.8338 11.021 8.9941 5.0137 7.8012-7.8012 15.603-15.603 23.404-23.404 8.5089 8.407 16.818 17.034 25.453 25.303 5.6904 3.732 10.917-5.8044 5.0156-8.9707-7.8012-7.7987-15.603-15.598-23.404-23.396 8.4708-8.6469 17.317-16.96 25.547-25.82 1.8624-3.1619-0.76375-7.5986-4.4629-7.3848z" style="color-rendering:auto;color:#000000;dominant-baseline:auto;fill-rule:evenodd;fill:#f5f5f5;font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;image-rendering:auto;isolation:auto;mix-blend-mode:normal;paint-order:stroke fill markers;shape-padding:0;shape-rendering:auto;solid-color:#000000;stroke:none;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g transform="translate(455.81 80.729)"></g>
+  </g>
+ </g>
+</svg>

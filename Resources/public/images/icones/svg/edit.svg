@@ -1,0 +1,27 @@
+<svg width="64.73mm" height="64.73mm" version="1.1" viewBox="0 0 64.73 64.73" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(465.53 -116.47)">
+  <g transform="translate(-733.5 327.48)">
+   <g transform="translate(148.58 -379.61)" style="stroke:#000">
+    <rect x="119.4" y="168.6" width="64.73" height="64.73" style="fill:none;paint-order:stroke fill markers;stroke:none"/>
+    <g transform="matrix(1.1436 0 0 1.1426 -30.245 -32.249)" style="stroke-width:.87484;stroke:#000">
+     <g style="stroke-width:.87484;stroke:#000">
+      <g transform="matrix(1.0481 0 0 1.045 246.42 2.8713)" style="stroke-width:.83593;stroke:#000">
+       <g style="stroke:#000">
+        <path d="m-72.926 200.61-3.2252 9.1989" style="fill:none;stroke-width:2.2117;stroke:#f5f5f5"/>
+        <path d="m-62.036 203.02-9.1989-3.2252" style="fill:none;stroke-width:2.2117;stroke:#f5f5f5"/>
+        <path d="m-67.688 209.34-4.224-8.7852" style="fill:none;stroke-width:2.2117;stroke:#f5f5f5"/>
+        <path d="m-71.292 198.79 8.7852-4.224" style="fill:none;stroke-width:2.2117;stroke:#f5f5f5"/>
+       </g>
+       <g style="stroke:#000">
+        <path transform="matrix(.22075 0 0 .22159 -110.26 165.47)" d="m47.648 72.385v99.881h101.34v-10.787h-92.066v-75.219l65.404 44.695 65.402-44.695v38.869h9.2715v-52.744zm26.68 13.213h95.992l-47.996 32.795zm139.81 41.182-39.797 19.064 3.2539 6.7305-1.6484 4.6797-4.4863 2.1523-7.0801-2.4746-14.607 41.514 9.457 3.3047 12.598-35.799 16.494 34.186 9.0332-4.3262-16.5-34.186 35.93 12.555 3.3164-9.4219-35.936-12.547 34.316-16.434z" style="color-rendering:auto;color:#000000;dominant-baseline:auto;fill-rule:evenodd;fill:#f5f5f5;font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;image-rendering:auto;isolation:auto;mix-blend-mode:normal;shape-padding:0;shape-rendering:auto;solid-color:#000000;stroke:none;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+       </g>
+      </g>
+     </g>
+    </g>
+    <g transform="matrix(1 0 0 1.1934 194.64 221.95)" style="stroke-width:.91537;stroke:#000">
+     <g transform="matrix(.86133 0 0 .83981 -2.2898 -.94039)" style="stroke-width:1.0763"></g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg width="64.73mm" height="64.73mm" version="1.1" viewBox="0 0 64.73 64.73" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(470.06 -116.47)">
+  <g transform="translate(-868.67 327.1)">
+   <rect x="398.61" y="-210.63" width="64.73" height="64.73" style="fill:none;paint-order:stroke fill markers"/>
+   <g transform="matrix(1 0 0 1.1934 473.85 -157.29)" style="stroke-width:.91537;stroke:#000">
+    <g transform="matrix(.87329 0 0 .86769 -5.1991 -2.1899)" style="stroke-width:1.0516">
+     <path transform="matrix(.30297 0 0 .2555 -80.202 -48.987)" d="m46.721 70.857v7.1074h-0.69141l0.69141 0.48242v95.348h102.53v-10.887h-93.346v-78.07l66.424 46.256 66.42-46.254v40.252h9.1875v-46.648l0.6875-0.47852h-0.6875v-7.1074zm26.631 13.447h97.945l-48.973 34.104zm99.621 30.289v32.289h-32.289v9.998h32.289v32.287h9.9961v-32.287h32.289v-9.998h-32.289v-32.289z" style="color-rendering:auto;color:#000000;dominant-baseline:auto;fill-rule:evenodd;fill:#f5f5f5;font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;image-rendering:auto;isolation:auto;mix-blend-mode:normal;paint-order:stroke fill markers;shape-padding:0;shape-rendering:auto;solid-color:#000000;stroke:none;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+    </g>
+   </g>
+   <g transform="matrix(.72501 0 0 .72501 456.14 -349.81)" style="stroke-width:1.3793;stroke:#000"></g>
+  </g>
+ </g>
+</svg>

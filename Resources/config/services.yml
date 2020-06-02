@@ -2,4 +2,4 @@ services:
 
     MesClics\MessagesBundle\Events\EventListeners\MessageReadListener:
         tags:
-            - { name: kernel.event_listener, event: mesclics_messages.read_message, method: process }
+            - { name: kernel.event_listener, event: mesclics_messages.read_message, method: proceed }

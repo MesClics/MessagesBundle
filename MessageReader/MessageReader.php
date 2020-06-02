@@ -1,8 +1,7 @@
 <?php
 namespace MesClics\MessagesBundle\MessageReader;
 
-use Doctrine\ORM\EntityManager;
-use MesClics\UserBundle\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use MesClics\MessagesBundle\Entity\Message;
 use Symfony\Component\Security\Core\Security;
 
@@ -11,7 +10,7 @@ class MessageReader{
     private $security;
     private $reader;
 
-    public function __construct(EntityManager $em, Security $security){
+    public function __construct(EntityManagerInterface $em, Security $security){
         $this->em = $em;
         $this->security = $security;
         $this->reader = $this->security->getUser();

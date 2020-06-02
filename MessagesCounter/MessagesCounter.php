@@ -1,7 +1,7 @@
 <?php
 namespace MesClics\MessagesBundle\MessagesCounter;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException; 
 
@@ -10,7 +10,7 @@ class MessagesCounter{
     private $security;
     private $counter_names;
 
-    public function __construct(EntityManager $em, Security $security){
+    public function __construct(EntityManagerInterface $em, Security $security){
         $this->em = $em;
         $this->security = $security;
         $this->counter_names = array(
